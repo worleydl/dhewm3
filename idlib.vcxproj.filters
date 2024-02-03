@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\bv\Bounds.cpp">
+      <Filter>neo\idlib\bv</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\bv\Frustum.cpp">
+      <Filter>neo\idlib\bv</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\bv\Sphere.cpp">
+      <Filter>neo\idlib\bv</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\bv\Box.cpp">
+      <Filter>neo\idlib\bv</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\DrawVert.cpp">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Winding2D.cpp">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Surface_SweptSpline.cpp">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Winding.cpp">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Surface.cpp">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Surface_Patch.cpp">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\TraceModel.cpp">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\JointTransform.cpp">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\hashing\CRC32.cpp">
+      <Filter>neo\idlib\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\hashing\MD4.cpp">
+      <Filter>neo\idlib\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\hashing\MD5.cpp">
+      <Filter>neo\idlib\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Angles.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Lcp.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Math.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Matrix.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Ode.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Plane.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Pluecker.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Polynomial.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Quat.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Rotation.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_Generic.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_AltiVec.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_MMX.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_3DNow.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_SSE.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_SSE2.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_SSE3.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\math\Vector.cpp">
+      <Filter>neo\idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\BitMsg.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\LangDict.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Lexer.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Lib.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\containers\HashIndex.cpp">
+      <Filter>neo\idlib\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Dict.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Str.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Parser.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\MapFile.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\CmdArgs.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Token.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Base64.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Timer.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\idlib\Heap.cpp">
+      <Filter>neo\idlib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Base64.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\BitMsg.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\CmdArgs.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Dict.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Heap.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\LangDict.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Lexer.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Lib.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\MapFile.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Parser.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Str.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Timer.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\Token.h">
+      <Filter>neo\idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\bv\Bounds.h">
+      <Filter>neo\idlib\bv</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\bv\Box.h">
+      <Filter>neo\idlib\bv</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\bv\Frustum.h">
+      <Filter>neo\idlib\bv</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\bv\Sphere.h">
+      <Filter>neo\idlib\bv</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\BTree.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\BinSearch.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\HashIndex.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\HashTable.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\Hierarchy.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\LinkList.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\List.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\PlaneSet.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\Queue.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\Stack.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\StaticList.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\StrList.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\StrPool.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\containers\VectorSet.h">
+      <Filter>neo\idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\DrawVert.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\JointTransform.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Surface.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Surface_Patch.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Surface_Polytope.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Surface_SweptSpline.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\TraceModel.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Winding.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\geometry\Winding2D.h">
+      <Filter>neo\idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\hashing\CRC32.h">
+      <Filter>neo\idlib\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\hashing\MD4.h">
+      <Filter>neo\idlib\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\hashing\MD5.h">
+      <Filter>neo\idlib\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Angles.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Complex.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Curve.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Extrapolate.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Interpolate.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Lcp.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Math.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Matrix.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Ode.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Plane.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Pluecker.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Polynomial.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Quat.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Random.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Rotation.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_3DNow.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_AltiVec.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_Generic.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_MMX.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_SSE.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_SSE2.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Simd_SSE3.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\idlib\math\Vector.h">
+      <Filter>neo\idlib\math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\hdr\dhewm3\neo\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="neo">
+      <UniqueIdentifier>{3144BE30-918F-38D0-88FC-D67508786CFA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\idlib">
+      <UniqueIdentifier>{6A27BCA1-76FB-30F6-A168-665408812B8D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\idlib\bv">
+      <UniqueIdentifier>{C9D49870-AF78-3ED1-8BC0-F1DA2426C766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\idlib\containers">
+      <UniqueIdentifier>{B57CB3A7-B21F-3106-8AEF-D5A636C13479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\idlib\geometry">
+      <UniqueIdentifier>{ECA7D5D7-560E-3BF5-B5EB-62C0D7CD95AE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\idlib\hashing">
+      <UniqueIdentifier>{7B3D4C53-A87F-3E27-AEE2-F51837DD1EFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\idlib\math">
+      <UniqueIdentifier>{9C14C0A9-3CBB-3B29-99E2-DA50164FEAF5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
