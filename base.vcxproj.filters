@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\AF.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\AFEntity.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Actor.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Camera.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Entity.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\BrittleFracture.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Fx.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\GameEdit.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Game_local.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Game_network.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Item.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\IK.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Light.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Misc.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Mover.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Moveable.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\MultiplayerGame.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Player.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\PlayerIcon.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\PlayerView.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Projectile.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Pvs.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\SecurityCamera.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\SmokeParticles.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Sound.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Target.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Trigger.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\Weapon.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\WorldSpawn.cpp">
+      <Filter>neo\game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\ai\AAS.cpp">
+      <Filter>neo\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\ai\AAS_debug.cpp">
+      <Filter>neo\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\ai\AAS_pathing.cpp">
+      <Filter>neo\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\ai\AAS_routing.cpp">
+      <Filter>neo\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\ai\AI.cpp">
+      <Filter>neo\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\ai\AI_events.cpp">
+      <Filter>neo\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\ai\AI_pathing.cpp">
+      <Filter>neo\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\ai\AI_Vagary.cpp">
+      <Filter>neo\game\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\gamesys\DebugGraph.cpp">
+      <Filter>neo\game\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\gamesys\Class.cpp">
+      <Filter>neo\game\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\gamesys\Event.cpp">
+      <Filter>neo\game\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\gamesys\SaveGame.cpp">
+      <Filter>neo\game\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\gamesys\SysCmds.cpp">
+      <Filter>neo\game\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\gamesys\SysCvar.cpp">
+      <Filter>neo\game\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\gamesys\TypeInfo.cpp">
+      <Filter>neo\game\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\anim\Anim.cpp">
+      <Filter>neo\game\anim</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\anim\Anim_Blend.cpp">
+      <Filter>neo\game\anim</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\anim\Anim_Import.cpp">
+      <Filter>neo\game\anim</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\anim\Anim_Testmodel.cpp">
+      <Filter>neo\game\anim</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\script\Script_Compiler.cpp">
+      <Filter>neo\game\script</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\script\Script_Interpreter.cpp">
+      <Filter>neo\game\script</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\script\Script_Program.cpp">
+      <Filter>neo\game\script</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\script\Script_Thread.cpp">
+      <Filter>neo\game\script</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Clip.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Force.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Force_Constant.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Force_Drag.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Force_Field.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Force_Spring.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_AF.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Actor.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Base.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Monster.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Parametric.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Player.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_RigidBody.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Static.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_StaticMulti.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\hdr\dhewm3\neo\game\physics\Push.cpp">
+      <Filter>neo\game\physics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\AF.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\AFEntity.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Actor.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\BrittleFracture.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Camera.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\EndLevel.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Entity.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Fx.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\GameBase.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\GameEdit.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Game_local.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\IK.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Item.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Light.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Misc.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Moveable.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Mover.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\MultiplayerGame.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Player.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\PlayerIcon.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\PlayerView.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Projectile.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Pvs.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\SecurityCamera.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\SmokeParticles.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Sound.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Target.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Trigger.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\Weapon.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\WorldSpawn.h">
+      <Filter>neo\game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\ai\AAS.h">
+      <Filter>neo\game\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\ai\AAS_local.h">
+      <Filter>neo\game\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\ai\AI.h">
+      <Filter>neo\game\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\anim\Anim.h">
+      <Filter>neo\game\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\anim\Anim_Testmodel.h">
+      <Filter>neo\game\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\gamesys\Class.h">
+      <Filter>neo\game\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\gamesys\DebugGraph.h">
+      <Filter>neo\game\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\gamesys\Event.h">
+      <Filter>neo\game\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\gamesys\NoGameTypeInfo.h">
+      <Filter>neo\game\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\gamesys\SaveGame.h">
+      <Filter>neo\game\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\gamesys\SysCmds.h">
+      <Filter>neo\game\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\gamesys\SysCvar.h">
+      <Filter>neo\game\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\gamesys\TypeInfo.h">
+      <Filter>neo\game\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Clip.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Force.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Force_Constant.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Force_Drag.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Force_Field.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Force_Spring.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_AF.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Actor.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Base.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Monster.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Parametric.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Player.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_RigidBody.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_Static.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Physics_StaticMulti.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\physics\Push.h">
+      <Filter>neo\game\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\script\Script_Compiler.h">
+      <Filter>neo\game\script</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\script\Script_Interpreter.h">
+      <Filter>neo\game\script</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\script\Script_Program.h">
+      <Filter>neo\game\script</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\hdr\dhewm3\neo\game\script\Script_Thread.h">
+      <Filter>neo\game\script</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\hdr\dhewm3\neo\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="neo">
+      <UniqueIdentifier>{3144BE30-918F-38D0-88FC-D67508786CFA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\game">
+      <UniqueIdentifier>{730077D0-D67A-3499-889C-A72F3B954E32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\game\ai">
+      <UniqueIdentifier>{88418ADC-0574-32A1-97B3-E18A456A7B16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\game\anim">
+      <UniqueIdentifier>{58D510AE-D404-3B7E-B9DA-5A430990E135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\game\gamesys">
+      <UniqueIdentifier>{D292DC63-EE83-3BCF-8D4A-3CFC9A1C4A74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\game\physics">
+      <UniqueIdentifier>{445F97AA-4A45-3FC4-8DE6-EF993BF218FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="neo\game\script">
+      <UniqueIdentifier>{770AE71B-909F-3571-8668-B9CA78C0D6A3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
