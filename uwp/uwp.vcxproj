@@ -217,13 +217,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>dhewm3.lib;idlib.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;SDL2.lib;d3d12.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Debug\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dhewm3.lib;idlib.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;SDL2.lib;opengl32.lib;libgallium_wgl.lib;z.lib;d3d12.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Debug\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include\AL;C:\dev\hdr\SDL-uwp-gl\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include\AL;C:\dev\hdr\SDL-uwp-gl\include\;C:\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
