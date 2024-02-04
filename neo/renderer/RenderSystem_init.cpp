@@ -784,8 +784,8 @@ void R_InitOpenGL( void ) {
 
 		parms.width = glConfig.vidWidth;
 		parms.height = glConfig.vidHeight;
-		parms.fullScreen = r_fullscreen.GetBool();
-		parms.fullScreenDesktop = r_fullscreenDesktop.GetBool();
+		parms.fullScreen = true; // r_fullscreen.GetBool();
+		parms.fullScreenDesktop = true; //r_fullscreenDesktop.GetBool();
 		parms.displayHz = r_displayRefresh.GetInteger();
 		parms.multiSamples = r_multiSamples.GetInteger();
 		parms.stereo = false;
