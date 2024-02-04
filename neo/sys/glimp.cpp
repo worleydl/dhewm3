@@ -359,7 +359,8 @@ try_again:
 				common->Warning("Can't get display mode: %s\n", SDL_GetError());
 				return false; // trying other color depth etc is unlikely to help with this issue
 			}
-			if ((real_mode.w != parms.width) || (real_mode.h != parms.height))
+			//if ((real_mode.w != parms.width) || (real_mode.h != parms.height))
+			if (false)
 			{
 				common->Warning("Current display mode isn't requested display mode\n");
 				common->Warning("Likely SDL bug #4700, trying to work around it..\n");

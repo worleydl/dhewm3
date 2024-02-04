@@ -621,7 +621,7 @@ void idCommonLocal::DumpWarnings( void ) {
 
 		fileSystem->CloseFile( warningFile );
 
-#if defined(_WIN32) && !defined(_DEBUG)
+#if defined(_WIN32) && !defined(_DEBUG) &&!defined(_UWP)
 		idStr	osPath;
 		osPath = fileSystem->RelativePathToOSPath( "warnings.txt", "fs_savepath" );
 		WinExec( va( "Notepad.exe %s", osPath.c_str() ), SW_SHOW );

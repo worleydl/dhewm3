@@ -4,12 +4,13 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap mp">
 
   <Identity
     Name="ecb9d0ff-6f1a-447e-98c2-882da9ef5683"
     Publisher="CN=danwo"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="ecb9d0ff-6f1a-447e-98c2-882da9ef5683" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -44,6 +45,11 @@
   </Applications>
 
   <Capabilities>
+    <rescap:Capability Name="runFullTrust"/>
+    <rescap:Capability Name="broadFileSystemAccess" />
+    <rescap:Capability Name="expandedResources" />
     <Capability Name="internetClient" />
+    <Capability Name="codeGeneration"/>
+    <uap:Capability Name="removableStorage"/>
   </Capabilities>
 </Package>

@@ -33,4 +33,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\SDL-uwp-gl\src\main\winrt\SDL_winrt_main_NonXAML.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="dhewm3-uwp_TemporaryKey.pfx" />
+  </ItemGroup>
 </Project>
