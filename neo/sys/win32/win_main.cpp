@@ -163,6 +163,7 @@ void Sys_Error( const char *error, ... ) {
 
 	GLimp_Shutdown();
 
+#ifndef _UWP
 	// wait for the user to quit
 	while ( 1 ) {
 		if ( !GetMessage( &msg, NULL, 0, 0 ) ) {
@@ -171,6 +172,7 @@ void Sys_Error( const char *error, ... ) {
 		TranslateMessage( &msg );
 		DispatchMessage( &msg );
 	}
+#endif
 
 	Sys_DestroyConsole();
 
@@ -285,7 +287,9 @@ Sys_ShowWindow
 ==============
 */
 void Sys_ShowWindow( bool show ) {
+#ifndef _UWP
 	::ShowWindow( win32.hWnd, show ? SW_SHOW : SW_HIDE );
+#endif
 }
 
 /*
@@ -294,7 +298,12 @@ Sys_IsWindowVisible
 ==============
 */
 bool Sys_IsWindowVisible( void ) {
+// TODO: Should be able to get actual value if we need it
+#ifdef _UWP
+	return true;
+#else
 	return ( ::IsWindowVisible( win32.hWnd ) != 0 );
+#endif
 }
 
 /*
@@ -392,7 +401,10 @@ extern "C" { // DG: I need this in SDL_win32_main.c
 		WCHAR profile[MAX_OSPATH];
 
 		/* Get the path to "My Documents" directory */
+// TODO: Need to revisit this, ideally pass folder in from wrapper somehow because we can't import winrt into this level
+#ifndef _UWP
 		SHGetFolderPathW(NULL, CSIDL_PERSONAL, NULL, 0, profile);
+#endif
 
 		len = WPath2A(dst, size, profile);
 		if (len == 0)
@@ -553,6 +565,7 @@ char *Sys_GetClipboardData( void ) {
 	char *data = NULL;
 	char *cliptext;
 
+#ifndef _UWP
 	if ( OpenClipboard( NULL ) != 0 ) {
 		HANDLE hClipboardData;
 
@@ -567,6 +580,7 @@ char *Sys_GetClipboardData( void ) {
 		}
 		CloseClipboard();
 	}
+#endif
 	return data;
 }
 
@@ -580,6 +594,7 @@ Sys_SetClipboardData
 ================
 */
 void Sys_SetClipboardData( const char *string ) {
+#ifndef _UWP
 	HGLOBAL HMem;
 	char *PMem;
 
@@ -609,6 +624,7 @@ void Sys_SetClipboardData( const char *string ) {
 	HMem = 0;
 	// close Clipboard
 	CloseClipboard();
+#endif
 }
 
 /*
@@ -733,7 +749,9 @@ The cvar system must already be setup
 */
 void Sys_Init( void ) {
 
+#ifndef _UWP
 	CoInitialize( NULL );
+#endif
 
 	// make sure the timer is high precision, otherwise
 	// NT gets 18ms resolution
@@ -1017,7 +1035,9 @@ int main(int argc, char *argv[]) {
 		printf("Opened this log at %s\n", timeStr);
 	}
 
+#ifndef _UWP
 	const HCURSOR hcurSave = ::SetCursor( LoadCursor( 0, IDC_WAIT ) );
+#endif
 
 	InitializeCriticalSection( &printfCritSect );
 
@@ -1153,6 +1173,8 @@ idSysLocal::OpenURL
 ==================
 */
 void idSysLocal::OpenURL( const char *url, bool doexit ) {
+// TODO: May eventaully bring back for UDP, causes errors
+#ifndef _UWP
 	static bool doexit_spamguard = false;
 	HWND wnd;
 
@@ -1177,6 +1199,7 @@ void idSysLocal::OpenURL( const char *url, bool doexit ) {
 		doexit_spamguard = true;
 		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "quit\n" );
 	}
+#endif
 }
 
 /*
