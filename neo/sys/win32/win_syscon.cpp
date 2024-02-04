@@ -201,6 +201,7 @@ static LRESULT CALLBACK ConWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
 }
 
 LONG WINAPI InputLineWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+#ifndef _UWP
 	int key, cursor;
 	switch ( uMsg ) {
 	case WM_KILLFOCUS:
@@ -283,12 +284,17 @@ LONG WINAPI InputLineWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	}
 
 	return CallWindowProc( (WNDPROC)s_wcd.SysInputLineWndProc, hWnd, uMsg, wParam, lParam );
+#else
+	return 0;
+#endif
 }
 
 /*
 ** Sys_CreateConsole
 */
 void Sys_CreateConsole( void ) {
+// No console on UWP for now (or ever)
+#ifndef _UWP
 	HDC hDC;
 	WNDCLASS wc;
 	RECT rect;
@@ -419,25 +425,28 @@ void Sys_CreateConsole( void ) {
 	for ( i = 0 ; i < COMMAND_HISTORY ; i++ ) {
 		s_wcd.historyEditLines[i].Clear();
 	}
+#endif
 }
 
 /*
 ** Sys_DestroyConsole
 */
 void Sys_DestroyConsole( void ) {
+#ifndef _UWP
 	if ( s_wcd.hWnd ) {
 		ShowWindow( s_wcd.hWnd, SW_HIDE );
 		CloseWindow( s_wcd.hWnd );
 		DestroyWindow( s_wcd.hWnd );
 		s_wcd.hWnd = 0;
 	}
+#endif
 }
 
 /*
 ** Sys_ShowConsole
 */
 void Sys_ShowConsole( int visLevel, bool quitOnClose ) {
-
+#ifndef _UWP
 	s_wcd.quitOnClose = quitOnClose;
 
 	if ( !s_wcd.hWnd ) {
@@ -459,6 +468,7 @@ void Sys_ShowConsole( int visLevel, bool quitOnClose ) {
 			Sys_Error( "Invalid visLevel %d sent to Sys_ShowConsole\n", visLevel );
 		break;
 	}
+#endif
 }
 
 /*
@@ -481,6 +491,7 @@ char *Sys_ConsoleInput( void ) {
 */
 void Conbuf_AppendText( const char *pMsg )
 {
+#ifndef _UWP
 #define CONSOLE_BUFFER_SIZE		16384
 
 	char buffer[CONSOLE_BUFFER_SIZE*2];
@@ -543,12 +554,14 @@ void Conbuf_AppendText( const char *pMsg )
 	SendMessage( s_wcd.hwndBuffer, EM_LINESCROLL, 0, 0xffff );
 	SendMessage( s_wcd.hwndBuffer, EM_SCROLLCARET, 0, 0 );
 	SendMessage( s_wcd.hwndBuffer, EM_REPLACESEL, 0, (LPARAM) buffer );
+#endif
 }
 
 /*
 ** Win_SetErrorText
 */
 void Win_SetErrorText( const char *buf ) {
+#ifndef _UWP
 	idStr::Copynz( s_wcd.errorString, buf, sizeof( s_wcd.errorString ) );
 	if ( !s_wcd.hwndErrorBox ) {
 		s_wcd.hwndErrorBox = CreateWindow( "static", NULL, WS_CHILD | WS_VISIBLE | SS_SUNKEN,
@@ -562,4 +575,5 @@ void Win_SetErrorText( const char *buf ) {
 		DestroyWindow( s_wcd.hwndInputLine );
 		s_wcd.hwndInputLine = NULL;
 	}
+#endif
 }

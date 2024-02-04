@@ -312,6 +312,7 @@ EnumWindowsProc
 ==================
 */
 BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam ) {
+#ifndef _UWP
 	char buff[1024];
 
 	::GetWindowText( hwnd, buff, sizeof( buff ) );
@@ -320,6 +321,9 @@ BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam ) {
 		return FALSE;
 	}
 	return TRUE;
+#else
+	return FALSE;
+#endif
 }
 
 /*
@@ -328,9 +332,13 @@ FindEditor
 ==================
 */
 bool FindEditor( void ) {
+#ifndef _UWP
 	com_hwndMsg = NULL;
 	EnumWindows( EnumWindowsProc, 0 );
 	return !( com_hwndMsg == NULL );
+#else
+	return FALSE;
+#endif
 }
 
 #endif
@@ -424,8 +432,7 @@ void idCommonLocal::VPrintf( const char *fmt, va_list args ) {
 		session->PacifierUpdate();
 	}
 
-#ifdef _WIN32
-
+#if WIN32 && !_UWP
 	if ( com_outputMsg ) {
 		if ( com_msgID == -1 ) {
 			com_msgID = ::RegisterWindowMessage( DMAP_MSGID );

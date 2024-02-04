@@ -377,7 +377,7 @@ void Dmap( const idCmdArgs &args ) {
 	// clear the map plane list
 	dmapGlobals.mapPlanes.Clear();
 
-#ifdef _WIN32
+#if _WIN32 && !_UWP
 	if ( com_outputMsg && com_hwndMsg != NULL ) {
 		unsigned int msg = ::RegisterWindowMessage( DMAP_DONE );
 		::PostMessage( com_hwndMsg, msg, 0, 0 );
