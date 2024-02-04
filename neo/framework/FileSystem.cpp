@@ -36,6 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "sys/platform.h"
 
+#undef ID_ENABLE_CURL
 #ifdef ID_ENABLE_CURL
 	#include <curl/curl.h>
 #endif

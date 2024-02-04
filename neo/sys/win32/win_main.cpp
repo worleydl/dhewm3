@@ -493,12 +493,14 @@ bool Sys_GetPath(sysPath_t type, idStr &path) {
 
 	case PATH_CONFIG:
 	case PATH_SAVE:
+#ifndef _UWP
 		if (Win_GetHomeDir(buf, sizeof(buf)) < 1) {
 			Sys_Error("ERROR: Couldn't get dir to home path");
 			return false;
 		}
+#endif
 
-		path = buf;
+		path = "E:\\d3\\";
 		return true;
 
 	case PATH_EXE:
