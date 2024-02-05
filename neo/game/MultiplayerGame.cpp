@@ -2806,7 +2806,7 @@ void idMultiplayerGame::ServerCallVote( int clientNum, const idBitMsg &msg ) {
 			}
 			int				num = fileSystem->GetNumMaps();
 			int				i;
-			const idDict	*dict;
+			const idDict	*dict = NULL;
 			bool			haveMap = false;
 			for ( i = 0; i < num; i++ ) {
 				dict = fileSystem->GetMapDecl( i );
@@ -2821,6 +2821,8 @@ void idMultiplayerGame::ServerCallVote( int clientNum, const idBitMsg &msg ) {
 				return;
 			}
 			ServerStartVote( clientNum, voteIndex, value );
+			if (!dict)
+				return;
 			ClientStartVote( clientNum, va( common->GetLanguageDict()->GetString( "#str_04256" ), common->GetLanguageDict()->GetString( dict ? dict->GetString( "name" ) : value ) ) );
 			break;
 		}

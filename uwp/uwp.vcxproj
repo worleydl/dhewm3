@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.240111.5\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240111.5\build\native\Microsoft.Windows.CppWinRT.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -219,7 +220,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <AdditionalDependencies>dhewm3.lib;idlib.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;SDL2.lib;opengl32.lib;libgallium_wgl.lib;z.lib;d3d12.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dhewm3.lib;idlib.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;SDL2.lib;opengl32.lib;libgallium_wgl.lib;z.lib;d3d12.lib;dxgi.lib;dxguid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Debug\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -235,7 +236,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <AdditionalDependencies>dhewm3.lib;idlib.lib;C:\emu\blah\al\openal-soft-1.23.1-bin\libs\Win64\OpenAl32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;SDL2.lib;opengl32.lib;libgallium_wgl.lib;z.lib;d3d12.lib;dxgi.lib;dxguid.lib;setupapi.lib;comctl32.lib;ws2_32.lib;shlwapi.lib;winmm.lib;rpcrt4.lib;xinputuap.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dhewm3.lib;idlib.lib;C:\emu\blah\al\openal-soft-1.23.1-bin\libs\Win64\OpenAl32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;SDL2.lib;opengl32.lib;libgallium_wgl.lib;z.lib;d3d12.lib;dxgi.lib;dxguid.lib;setupapi.lib;comctl32.lib;ws2_32.lib;shlwapi.lib;winmm.lib;rpcrt4.lib;xinputuap.lib;onecore.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Release\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
     </Link>
@@ -247,10 +248,11 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>true</CompileAsWinRT>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3\uwpdep\base.dll">
+    <Content Include="C:\dev\hdr\dhewm3\Release\base.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -290,7 +292,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\emu\blah\al\openal-soft-1.23.1-bin\bin\Win64\soft_oal.dll">
+    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\OpenAL32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -300,17 +302,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\emu\blah\libs\opengl32.dll">
+    <Content Include="C:\bin\opengl32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\emu\blah\libs\libgallium_wgl.dll">
+    <Content Include="C:\bin\libgallium_wgl.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\emu\blah\libs\z-1.dll">
+    <Content Include="C:\bin\z-1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -334,15 +336,24 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\SDL-uwp-gl\src\main\winrt\SDL_winrt_main_NonXAML.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dhewm3-uwp_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\ImageContentTask.targets" />
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\MeshContentTask.targets" />
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\ShaderGraphContentTask.targets" />
+    <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.240111.5\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240111.5\build\native\Microsoft.Windows.CppWinRT.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240111.5\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.240111.5\build\native\Microsoft.Windows.CppWinRT.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240111.5\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.240111.5\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+  </Target>
 </Project>

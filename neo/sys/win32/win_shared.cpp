@@ -99,7 +99,5 @@ Sys_SetPhysicalWorkMemory
 ================
 */
 void Sys_SetPhysicalWorkMemory( int minBytes, int maxBytes ) {
-#ifndef _UWP
 	::SetProcessWorkingSetSize( GetCurrentProcess(), minBytes, maxBytes );
-#endif
 }

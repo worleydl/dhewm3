@@ -2540,6 +2540,9 @@ bool idEntity::RunPhysics( void ) {
 	idEntity *	part, *blockedPart, *blockingEntity;
 	bool		moved;
 
+	// Fix WINRT issues
+	blockingEntity = NULL;
+
 	// don't run physics if not enabled
 	if ( !( thinkFlags & TH_PHYSICS ) ) {
 		// however do update any animation controllers
@@ -2637,6 +2640,9 @@ bool idEntity::RunPhysics( void ) {
 
 		// if the master pusher has a "blocked" function, call it
 		Signal( SIG_BLOCKED );
+		if (!blockingEntity)
+			return false;
+
 		ProcessEvent( &EV_TeamBlocked, blockedPart, blockingEntity );
 		// call the blocked function on the blocked part
 		blockedPart->ProcessEvent( &EV_PartBlocked, blockingEntity );
