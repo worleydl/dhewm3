@@ -500,7 +500,7 @@ bool Sys_GetPath(sysPath_t type, idStr &path) {
 		}
 #endif
 
-		path = "E:\\d3\\";
+		path = "D:\\DevelopmentFiles\\apps";
 		return true;
 
 	case PATH_EXE:
@@ -644,7 +644,13 @@ Sys_DLL_Load
 */
 uintptr_t Sys_DLL_Load( const char *dllName ) {
 	HINSTANCE	libHandle;
-	libHandle = LoadLibrary( dllName );
+	libHandle = LoadLibrary(dllName);
+	
+	if (!libHandle) {
+		int i = GetLastError();
+		Sys_Printf("Error loading base.dll: %i", i);
+	}
+
 	if ( libHandle ) {
 		// since we can't have LoadLibrary load only from the specified path, check it did the right thing
 		char loadedPath[ MAX_OSPATH ];

@@ -109,11 +109,13 @@ bool idModelExport::CheckMayaInstall( void ) {
 	return true;
 #else
 	HKEY	hKey;
-	long	lres;
+	long	lres = 0;
 
+#ifndef _UWP
 	// only check the non-version specific key so that we only have to update the maya dll when new versions are released
 	lres = RegOpenKey( HKEY_LOCAL_MACHINE, "SOFTWARE\\Alias|Wavefront\\Maya", &hKey );
 	RegCloseKey( hKey );
+#endif
 
 	if ( lres != ERROR_SUCCESS ) {
 		return false;
