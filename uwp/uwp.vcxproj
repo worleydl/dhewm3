@@ -43,11 +43,13 @@
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <ProjectName>dhewm3-uwp</ProjectName>
+    <MinimalCoreWin>true</MinimalCoreWin>
+    <CppWinRTOptimized>true</CppWinRTOptimized>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -220,14 +222,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <AdditionalDependencies>dhewm3.lib;idlib.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;SDL2.lib;opengl32.lib;libgallium_wgl.lib;z.lib;d3d12.lib;dxgi.lib;dxguid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Debug\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dhewm3.lib;idlib.lib;OpenAl32.lib;libcurl.lib;z.lib;$(ProjectDir)\..\uwpdep\SDL2.lib;opengl32.lib;libgallium_wgl.lib;d3d12.lib;dxgi.lib;dxguid.lib;onecore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Debug\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ClCompile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include\AL;C:\dev\hdr\SDL-uwp-gl\include\;C:\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);$(ProjectDir)\..\..\SDL-uwp-gl\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -236,14 +239,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <AdditionalDependencies>dhewm3.lib;idlib.lib;C:\emu\blah\al\openal-soft-1.23.1-bin\libs\Win64\OpenAl32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\OpenAL32.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\libcurl.lib;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\lib\zlib1.lib;SDL2.lib;opengl32.lib;libgallium_wgl.lib;z.lib;d3d12.lib;dxgi.lib;dxguid.lib;setupapi.lib;comctl32.lib;ws2_32.lib;shlwapi.lib;winmm.lib;rpcrt4.lib;xinputuap.lib;onecore.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Release\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
-      <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
+      <AdditionalDependencies>dhewm3.lib;idlib.lib;OpenAl32.lib;libcurl.lib;z.lib;$(ProjectDir)\..\uwpdep\SDL2.lib;opengl32.lib;libgallium_wgl.lib;d3d12.lib;dxgi.lib;dxguid.lib;onecore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Release\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include\AL;C:\dev\hdr\SDL-uwp-gl\include\;C:\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(IntermediateOutputPath);$(ProjectDir)\..\..\SDL-uwp-gl\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -252,52 +254,47 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3\Release\base.dll">
+    <Content Include="$(ProjectDir)\..\Release\base.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3\uwpdep\SDL2.dll">
+    <Content Include="$(ProjectDir)\..\uwpdep\SDL2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\libcurl-4.dll">
+    <Content Include="$(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\bin\libcurl-4.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\libjpeg-8.dll">
+    <Content Include="$(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\bin\libjpeg-8.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\libogg-0.dll">
+    <Content Include="$(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\bin\libogg-0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\libvorbis-0.dll">
+    <Content Include="$(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\bin\libvorbis-0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\libvorbisenc-2.dll">
+    <Content Include="$(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\bin\libvorbisenc-2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\libvorbisfile-3.dll">
+    <Content Include="$(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\bin\libvorbisfile-3.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\OpenAL32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\bin\zlib1.dll">
+    <Content Include="$(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\bin\OpenAL32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -316,6 +313,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
   <ItemGroup>
     <Content Include="C:\Program Files (x86)\Windows Kits\10\Redist\D3D\x64\dxil.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
