@@ -46,9 +46,9 @@
   </Applications>
 
   <Capabilities>
-    <rescap:Capability Name="runFullTrust"/>
     <rescap:Capability Name="broadFileSystemAccess" />
     <rescap:Capability Name="expandedResources" />
+    <rescap:Capability Name="hevcPlayback" />
     <Capability Name="internetClient" />
     <Capability Name="codeGeneration"/>
     <uap:Capability Name="removableStorage"/>

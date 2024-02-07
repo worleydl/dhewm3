@@ -6,9 +6,25 @@
 #include <wrl.h>
 
 #include <winrt/Windows.Foundation.h>
-#include <winrt/Windows.Web.Syndication.h>
+#include <winrt/Windows.Foundation.Collections.h>
+#include <winrt/Windows.ApplicationModel.Activation.h>
+#include <winrt/Windows.ApplicationModel.Core.h>
+#include <winrt/Windows.UI.Core.h>
+#include <winrt/Windows.UI.Composition.h>
+#include <winrt/Windows.UI.Input.h>
+#include <winrt/Windows.UI.ViewManagement.Core.h>
+#include <winrt/Windows.Graphics.Display.Core.h>
+#include <winrt/Windows.Gaming.Input.h>
+#include <winrt/Windows.System.h>
 
-using namespace winrt;
+#include <gamingdeviceinformation.h>
+
+#include <winrt/Windows.Graphics.Display.Core.h>o
+
+#include <expandedresources.h>
+
+
+using namespace winrt::Windows::Graphics::Display::Core;
 
 /* At least one file in any SDL/WinRT app appears to require compilation
    with C++/CX, otherwise a Windows Metadata file won't get created, and
@@ -50,7 +66,21 @@ using namespace winrt;
 
 int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-    winrt::init_apartment();
+    // Inject HDR mode hack
+    HdmiDisplayInformation hdi = HdmiDisplayInformation::GetForCurrentView();
+
+    auto modes = hdi.GetSupportedDisplayModes();
+
+    for (unsigned i = 0; i < modes.Size(); i++)
+    {
+        HdmiDisplayMode mode = modes.GetAt(i);
+
+        if (mode.ColorSpace() == HdmiDisplayColorSpace::BT2020 && mode.RefreshRate() >= 59)
+        {
+            hdi.RequestSetCurrentDisplayModeAsync(mode, HdmiDisplayHdrOption::Eotf2084);
+            break;
+        }
+    }
+
     return SDL_WinRTRunApp(SDL_main, NULL);
-    winrt::uninit_apartment();
 }
