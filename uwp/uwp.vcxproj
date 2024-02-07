@@ -294,7 +294,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\bin\OpenAL32.dll">
+    <Content Include="$(ProjectDir)\..\..\openal-soft\build\Release\OpenAL32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
