@@ -462,7 +462,7 @@ void R_LoadARBProgram( int progIndex ) {
 		// Note: program.env[4].xyz = r_brightness; program.env[4].w = 1.0/r_gamma
 		// outColor.rgb = pow(dhewm3tmpres.rgb*r_brightness, vec3(1.0/r_gamma))
 		// outColor.a = dhewm3tmpres.a;
-		const char* extraLines =
+		const char* extraLinesDefault =
 			"# gamma correction in shader, injected by dhewm3 \n"
 			// MUL_SAT clamps the result to [0, 1] - it must not be negative because
 			// POW might not work with a negative base (it looks wrong with intel's Linux driver)
@@ -474,6 +474,59 @@ void R_LoadARBProgram( int progIndex ) {
 			"POW result.color.z, dhewm3tmpres.z, program.env[4].w;\n"
 			"MOV result.color.w, dhewm3tmpres.w;\n" // alpha remains unmodified
 			"\nEND\n\n"; // we add this block right at the end, replacing the original "END" string
+
+		// Attempt at filmic tonemappingmapping with ARB
+		const char* extraLinesTonemapped =
+			/*
+					"# gamma correction in shader, injected by dhewm3 \n"
+					*/
+			"TEMP leftColor;\n"
+			"TEMP rightColor;\n"
+			"TEMP brightBoost;\n"
+			"TEMP gammaBoost;\n"
+
+			"MOV brightBoost, {1.5}.x;\n" // HDR likes a little extra for this title 
+			"MUL brightBoost, brightBoost, program.env[4];\n"
+			"ADD gammaBoost.x, {0.2}.x, program.env[4].w;\n"
+
+			"MUL_SAT dhewm3tmpres.xyz, brightBoost, dhewm3tmpres;\n" // first multiply with exposure
+
+			// Left side ops
+			"MAD_SAT leftColor.xyz, {0.15}.x, dhewm3tmpres, {0.05}.x;\n"
+			"MAD_SAT leftColor.xyz, leftColor, dhewm3tmpres, {0.004}.x;\n"
+
+			// Right side ops
+			"MAD_SAT rightColor.xyz, {0.15}.x, dhewm3tmpres, {0.50}.x;\n"
+			"MAD_SAT rightColor.xyz, rightColor, dhewm3tmpres, {0.06}.x;\n"
+
+			// Final
+			"RCP rightColor.x, rightColor.x;\n"
+			"RCP rightColor.y, rightColor.y;\n"
+			"RCP rightColor.z, rightColor.z;\n"
+			"MUL_SAT dhewm3tmpres.xyz, leftColor, rightColor;\n"
+
+			"SUB_SAT dhewm3tmpres.xyz, dhewm3tmpres, {0.0666}.x;\n"
+
+			// White level
+			"MUL_SAT dhewm3tmpres.xyz, {1.379}.x, dhewm3tmpres;\n"
+
+			// Gamma correction
+			"POW result.color.x, dhewm3tmpres.x, gammaBoost.x;\n"
+			"POW result.color.y, dhewm3tmpres.y, gammaBoost.x;\n"
+			"POW result.color.z, dhewm3tmpres.z, gammaBoost.x;\n"
+			"MOV result.color.w, dhewm3tmpres.w;\n" // alpha remains unmodified
+
+
+			"\nEND\n\n"; // we add this block right at the end, replacing the original "END" string
+		
+		const char* extraLines;
+		if (strstr(fullPath, "glasswarp") || strstr(fullPath, "heatHaze")) {
+			extraLines = extraLinesDefault;
+		}
+		else {
+			extraLines = extraLinesTonemapped;
+		}
+
 
 		int fullLen = strlen( start ) + strlen( tmpres ) + strlen( extraLines );
 		char* outStr = (char*)_alloca( fullLen + 1 );
