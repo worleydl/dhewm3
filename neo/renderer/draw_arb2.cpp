@@ -595,29 +595,33 @@ void R_LoadARBProgram( int progIndex ) {
 			"MOV result.color.w, dhewm3tmpres.w;\n" // alpha remains unmodified
 			"\nEND\n\n"; // we add this block right at the end, replacing the original "END" string
 
+
+		/*
+		float a = 2.51;
+		float b = 0.03;
+		float c = 2.43;
+		float d = 0.59;
+		float e = 0.14;
+		return saturate((color * (a * color + b)) / (color * (c * x + d) + e));
+		*/
 		// Attempt at filmic tonemappingmapping with ARB
 		const char* extraLinesTonemapped =
 			/*
-					"# gamma correction in shader, injected by dhewm3 \n"
-					*/
+				Filmic shader taken from RBDoom3BFG
+				Ported to ARB by worleydl
+			*/
 			"TEMP leftColor;\n"
 			"TEMP rightColor;\n"
-			"TEMP brightBoost;\n"
-			"TEMP gammaBoost;\n"
 
-			"MOV brightBoost, {1.5}.x;\n" // HDR likes a little extra for this title 
-			"MUL brightBoost, brightBoost, program.env[4];\n"
-			"ADD gammaBoost.x, {0.2}.x, program.env[4].w;\n"
-
-			"MUL_SAT dhewm3tmpres.xyz, brightBoost, dhewm3tmpres;\n" // first multiply with exposure
+			"MUL_SAT dhewm3tmpres.xyz, program.env[4], dhewm3tmpres;\n" // first multiply with exposure
 
 			// Left side ops
-			"MAD_SAT leftColor.xyz, {0.15}.x, dhewm3tmpres, {0.05}.x;\n"
-			"MAD_SAT leftColor.xyz, leftColor, dhewm3tmpres, {0.004}.x;\n"
+			"MAD leftColor.xyz, {2.51}.x, dhewm3tmpres, {0.03}.x;\n"
+			"MUL leftColor.xyz, leftColor, dhewm3tmpres;\n"
 
 			// Right side ops
-			"MAD_SAT rightColor.xyz, {0.15}.x, dhewm3tmpres, {0.50}.x;\n"
-			"MAD_SAT rightColor.xyz, rightColor, dhewm3tmpres, {0.06}.x;\n"
+			"MAD rightColor.xyz, {2.43}.x, dhewm3tmpres, {0.59}.x;\n"
+			"MAD rightColor.xyz, rightColor, dhewm3tmpres, {0.14}.x;\n"
 
 			// Final
 			"RCP rightColor.x, rightColor.x;\n"
@@ -625,22 +629,17 @@ void R_LoadARBProgram( int progIndex ) {
 			"RCP rightColor.z, rightColor.z;\n"
 			"MUL_SAT dhewm3tmpres.xyz, leftColor, rightColor;\n"
 
-			"SUB_SAT dhewm3tmpres.xyz, dhewm3tmpres, {0.0666}.x;\n"
-
-			// White level
-			"MUL_SAT dhewm3tmpres.xyz, {1.379}.x, dhewm3tmpres;\n"
-
 			// Gamma correction
-			"POW result.color.x, dhewm3tmpres.x, gammaBoost.x;\n"
-			"POW result.color.y, dhewm3tmpres.y, gammaBoost.x;\n"
-			"POW result.color.z, dhewm3tmpres.z, gammaBoost.x;\n"
+			"POW result.color.x, dhewm3tmpres.x, program.env[4].w;\n"
+			"POW result.color.y, dhewm3tmpres.y, program.env[4].w;\n"
+			"POW result.color.z, dhewm3tmpres.z, program.env[4].w;\n"
 			"MOV result.color.w, dhewm3tmpres.w;\n" // alpha remains unmodified
 
 
 			"\nEND\n\n"; // we add this block right at the end, replacing the original "END" string
 		
 		const char* extraLines;
-		if (strstr(fullPath, "glasswarp") || strstr(fullPath, "heatHaze")) {
+		if (strstr(fullPath, "glass") || strstr(fullPath, "heatHaze")) {
 			extraLines = extraLinesDefault;
 		}
 		else {
