@@ -576,6 +576,9 @@ try_again:
 		return false;
 	}
 
+	// Replace legacy func init with glad init
+	gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress);
+
 	return true;
 }
 
