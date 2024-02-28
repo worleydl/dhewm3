@@ -247,53 +247,7 @@ idCVar r_useSoftParticles( "r_useSoftParticles", "1", CVAR_RENDERER | CVAR_ARCHI
 idCVar r_glDebugContext( "r_glDebugContext", "0", CVAR_RENDERER | CVAR_BOOL, "Enable OpenGL Debug context - requires vid_restart, needs SDL2" );
 
 // define qgl functions
-#define QGLPROC(name, rettype, args) rettype (APIENTRYP q##name) args;
-#include "renderer/qgl_proc.h"
-
-void ( APIENTRY * qglMultiTexCoord2fARB )( GLenum texture, GLfloat s, GLfloat t );
-void ( APIENTRY * qglMultiTexCoord2fvARB )( GLenum texture, GLfloat *st );
-void ( APIENTRY * qglActiveTextureARB )( GLenum texture );
-void ( APIENTRY * qglClientActiveTextureARB )( GLenum texture );
-
-void (APIENTRY *qglTexImage3D)(GLenum, GLint, GLint, GLsizei, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid *);
-
-void (APIENTRY * qglColorTableEXT)( int, int, int, int, int, const void * );
-
-// EXT_stencil_two_side
-PFNGLACTIVESTENCILFACEEXTPROC			qglActiveStencilFaceEXT;
-
-// ARB_texture_compression
-PFNGLCOMPRESSEDTEXIMAGE2DARBPROC		qglCompressedTexImage2DARB;
-PFNGLGETCOMPRESSEDTEXIMAGEARBPROC		qglGetCompressedTexImageARB;
-
-// ARB_vertex_buffer_object
-PFNGLBINDBUFFERARBPROC					qglBindBufferARB;
-PFNGLDELETEBUFFERSARBPROC				qglDeleteBuffersARB;
-PFNGLGENBUFFERSARBPROC					qglGenBuffersARB;
-PFNGLISBUFFERARBPROC					qglIsBufferARB;
-PFNGLBUFFERDATAARBPROC					qglBufferDataARB;
-PFNGLBUFFERSUBDATAARBPROC				qglBufferSubDataARB;
-PFNGLGETBUFFERSUBDATAARBPROC			qglGetBufferSubDataARB;
-PFNGLMAPBUFFERARBPROC					qglMapBufferARB;
-PFNGLUNMAPBUFFERARBPROC					qglUnmapBufferARB;
-PFNGLGETBUFFERPARAMETERIVARBPROC		qglGetBufferParameterivARB;
-PFNGLGETBUFFERPOINTERVARBPROC			qglGetBufferPointervARB;
-
-// ARB_vertex_program / ARB_fragment_program
-PFNGLVERTEXATTRIBPOINTERARBPROC			qglVertexAttribPointerARB;
-PFNGLENABLEVERTEXATTRIBARRAYARBPROC		qglEnableVertexAttribArrayARB;
-PFNGLDISABLEVERTEXATTRIBARRAYARBPROC	qglDisableVertexAttribArrayARB;
-PFNGLPROGRAMSTRINGARBPROC				qglProgramStringARB;
-PFNGLBINDPROGRAMARBPROC					qglBindProgramARB;
-PFNGLGENPROGRAMSARBPROC					qglGenProgramsARB;
-PFNGLPROGRAMENVPARAMETER4FVARBPROC		qglProgramEnvParameter4fvARB;
-PFNGLPROGRAMLOCALPARAMETER4FVARBPROC	qglProgramLocalParameter4fvARB;
-
-// GL_EXT_depth_bounds_test
-PFNGLDEPTHBOUNDSEXTPROC                 qglDepthBoundsEXT;
-
-// DG: couldn't find any extension for this, it's supported in GL2.0 and newer, incl OpenGL ES2.0
-PFNGLSTENCILOPSEPARATEPROC qglStencilOpSeparate;
+#include "glad/gl.h"
 
 // GL_ARB_debug_output
 PFNGLDEBUGMESSAGECALLBACKARBPROC        qglDebugMessageCallbackARB;
@@ -384,13 +338,8 @@ R_CheckPortableExtensions
 static void R_CheckPortableExtensions( void ) {
 	glConfig.glVersion = atof( glConfig.version_string );
 
-	// GL_ARB_multitexture
 	glConfig.multitextureAvailable = R_CheckExtension( "GL_ARB_multitexture" );
 	if ( glConfig.multitextureAvailable ) {
-		qglMultiTexCoord2fARB = (void(APIENTRY *)(GLenum, GLfloat, GLfloat))GLimp_ExtensionPointer( "glMultiTexCoord2fARB" );
-		qglMultiTexCoord2fvARB = (void(APIENTRY *)(GLenum, GLfloat *))GLimp_ExtensionPointer( "glMultiTexCoord2fvARB" );
-		qglActiveTextureARB = (void(APIENTRY *)(GLenum))GLimp_ExtensionPointer( "glActiveTextureARB" );
-		qglClientActiveTextureARB = (void(APIENTRY *)(GLenum))GLimp_ExtensionPointer( "glClientActiveTextureARB" );
 		qglGetIntegerv( GL_MAX_TEXTURE_UNITS_ARB, (GLint *)&glConfig.maxTextureUnits );
 		if ( glConfig.maxTextureUnits > MAX_MULTITEXTURE_UNITS ) {
 			glConfig.maxTextureUnits = MAX_MULTITEXTURE_UNITS;
@@ -401,6 +350,15 @@ static void R_CheckPortableExtensions( void ) {
 		qglGetIntegerv( GL_MAX_TEXTURE_COORDS_ARB, (GLint *)&glConfig.maxTextureCoords );
 		qglGetIntegerv( GL_MAX_TEXTURE_IMAGE_UNITS_ARB, (GLint *)&glConfig.maxTextureImageUnits );
 	}
+
+	// GL_EXT_shared_texture_palette
+	glConfig.sharedTexturePaletteAvailable = R_CheckExtension("GL_EXT_shared_texture_palette");
+
+	// ARB_vertex_buffer_object
+	glConfig.ARBVertexBufferObjectAvailable = R_CheckExtension("GL_ARB_vertex_buffer_object");
+
+	// ARB_vertex_program
+	glConfig.ARBVertexProgramAvailable = R_CheckExtension("GL_ARB_vertex_program");
 
 	// GL_ARB_texture_env_combine
 	glConfig.textureEnvCombineAvailable = R_CheckExtension( "GL_ARB_texture_env_combine" );
@@ -447,12 +405,6 @@ static void R_CheckPortableExtensions( void ) {
 		glConfig.textureLODBiasAvailable = false;
 	}
 
-	// GL_EXT_shared_texture_palette
-	glConfig.sharedTexturePaletteAvailable = R_CheckExtension( "GL_EXT_shared_texture_palette" );
-	if ( glConfig.sharedTexturePaletteAvailable ) {
-		qglColorTableEXT = ( void ( APIENTRY * ) ( int, int, int, int, int, const void * ) ) GLimp_ExtensionPointer( "glColorTableEXT" );
-	}
-
 	// GL_EXT_texture3D (not currently used for anything)
 	glConfig.texture3DAvailable = R_CheckExtension( "GL_EXT_texture3D" );
 	if ( glConfig.texture3DAvailable ) {
@@ -491,47 +443,11 @@ static void R_CheckPortableExtensions( void ) {
 		qglStencilOpSeparate = NULL;
 	}
 
-	// ARB_vertex_buffer_object
-	glConfig.ARBVertexBufferObjectAvailable = R_CheckExtension( "GL_ARB_vertex_buffer_object" );
-	if(glConfig.ARBVertexBufferObjectAvailable) {
-		qglBindBufferARB = (PFNGLBINDBUFFERARBPROC)GLimp_ExtensionPointer( "glBindBufferARB");
-		qglDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC)GLimp_ExtensionPointer( "glDeleteBuffersARB");
-		qglGenBuffersARB = (PFNGLGENBUFFERSARBPROC)GLimp_ExtensionPointer( "glGenBuffersARB");
-		qglIsBufferARB = (PFNGLISBUFFERARBPROC)GLimp_ExtensionPointer( "glIsBufferARB");
-		qglBufferDataARB = (PFNGLBUFFERDATAARBPROC)GLimp_ExtensionPointer( "glBufferDataARB");
-		qglBufferSubDataARB = (PFNGLBUFFERSUBDATAARBPROC)GLimp_ExtensionPointer( "glBufferSubDataARB");
-		qglGetBufferSubDataARB = (PFNGLGETBUFFERSUBDATAARBPROC)GLimp_ExtensionPointer( "glGetBufferSubDataARB");
-		qglMapBufferARB = (PFNGLMAPBUFFERARBPROC)GLimp_ExtensionPointer( "glMapBufferARB");
-		qglUnmapBufferARB = (PFNGLUNMAPBUFFERARBPROC)GLimp_ExtensionPointer( "glUnmapBufferARB");
-		qglGetBufferParameterivARB = (PFNGLGETBUFFERPARAMETERIVARBPROC)GLimp_ExtensionPointer( "glGetBufferParameterivARB");
-		qglGetBufferPointervARB = (PFNGLGETBUFFERPOINTERVARBPROC)GLimp_ExtensionPointer( "glGetBufferPointervARB");
-	}
-
-	// ARB_vertex_program
-	glConfig.ARBVertexProgramAvailable = R_CheckExtension( "GL_ARB_vertex_program" );
-	if (glConfig.ARBVertexProgramAvailable) {
-		qglVertexAttribPointerARB = (PFNGLVERTEXATTRIBPOINTERARBPROC)GLimp_ExtensionPointer( "glVertexAttribPointerARB" );
-		qglEnableVertexAttribArrayARB = (PFNGLENABLEVERTEXATTRIBARRAYARBPROC)GLimp_ExtensionPointer( "glEnableVertexAttribArrayARB" );
-		qglDisableVertexAttribArrayARB = (PFNGLDISABLEVERTEXATTRIBARRAYARBPROC)GLimp_ExtensionPointer( "glDisableVertexAttribArrayARB" );
-		qglProgramStringARB = (PFNGLPROGRAMSTRINGARBPROC)GLimp_ExtensionPointer( "glProgramStringARB" );
-		qglBindProgramARB = (PFNGLBINDPROGRAMARBPROC)GLimp_ExtensionPointer( "glBindProgramARB" );
-		qglGenProgramsARB = (PFNGLGENPROGRAMSARBPROC)GLimp_ExtensionPointer( "glGenProgramsARB" );
-		qglProgramEnvParameter4fvARB = (PFNGLPROGRAMENVPARAMETER4FVARBPROC)GLimp_ExtensionPointer( "glProgramEnvParameter4fvARB" );
-		qglProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC)GLimp_ExtensionPointer( "glProgramLocalParameter4fvARB" );
-	}
-
 	// ARB_fragment_program
 	if ( r_inhibitFragmentProgram.GetBool() ) {
 		glConfig.ARBFragmentProgramAvailable = false;
 	} else {
 		glConfig.ARBFragmentProgramAvailable = R_CheckExtension( "GL_ARB_fragment_program" );
-		if (glConfig.ARBFragmentProgramAvailable) {
-			// these are the same as ARB_vertex_program
-			qglProgramStringARB = (PFNGLPROGRAMSTRINGARBPROC)GLimp_ExtensionPointer( "glProgramStringARB" );
-			qglBindProgramARB = (PFNGLBINDPROGRAMARBPROC)GLimp_ExtensionPointer( "glBindProgramARB" );
-			qglProgramEnvParameter4fvARB = (PFNGLPROGRAMENVPARAMETER4FVARBPROC)GLimp_ExtensionPointer( "glProgramEnvParameter4fvARB" );
-			qglProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC)GLimp_ExtensionPointer( "glProgramLocalParameter4fvARB" );
-		}
 	}
 
 	// check for minimum set
@@ -541,42 +457,7 @@ static void R_CheckPortableExtensions( void ) {
 	}
 
 	// GL_EXT_depth_bounds_test
-	glConfig.depthBoundsTestAvailable = R_CheckExtension( "EXT_depth_bounds_test" );
-	if ( glConfig.depthBoundsTestAvailable ) {
-		qglDepthBoundsEXT = (PFNGLDEPTHBOUNDSEXTPROC)GLimp_ExtensionPointer( "glDepthBoundsEXT" );
-	}
-
-	// GL_ARB_debug_output
-	glConfig.glDebugOutputAvailable = false;
-	if ( glConfig.haveDebugContext ) {
-		if ( strstr( glConfig.extensions_string, "GL_ARB_debug_output" ) ) {
-			glConfig.glDebugOutputAvailable = true;
-			qglDebugMessageCallbackARB = (PFNGLDEBUGMESSAGECALLBACKARBPROC)GLimp_ExtensionPointer( "glDebugMessageCallbackARB" );
-			if ( r_glDebugContext.GetBool() ) {
-				common->Printf( "...using GL_ARB_debug_output (r_glDebugContext is set)\n" );
-				qglDebugMessageCallbackARB(DebugCallback, NULL);
-				qglEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
-			} else {
-				common->Printf( "...found GL_ARB_debug_output, but not using it (r_glDebugContext is not set)\n" );
-			}
-		} else {
-			common->Printf( "X..GL_ARB_debug_output not found\n" );
-			qglDebugMessageCallbackARB = NULL;
-			if ( r_glDebugContext.GetBool() ) {
-				common->Warning( "r_glDebugContext is set, but can't be used because GL_ARB_debug_output is not supported" );
-			}
-		}
-	} else {
-		if ( strstr( glConfig.extensions_string, "GL_ARB_debug_output" ) ) {
-			if ( r_glDebugContext.GetBool() ) {
-				common->Printf( "...found GL_ARB_debug_output, but not using it (no debug context)\n" );
-			} else {
-				common->Printf( "...found GL_ARB_debug_output, but not using it (r_glDebugContext is not set)\n" );
-			}
-		} else {
-			common->Printf( "X..GL_ARB_debug_output not found\n" );
-		}
-	}
+	glConfig.depthBoundsTestAvailable = R_CheckExtension( "GL_EXT_depth_bounds_test" );
 }
 
 
@@ -808,12 +689,7 @@ void R_InitOpenGL( void ) {
 	}
 
 // load qgl function pointers
-#define QGLPROC(name, rettype, args) \
-	q##name = (rettype(APIENTRYP)args)GLimp_ExtensionPointer(#name); \
-	if (!q##name) \
-		common->FatalError("Unable to initialize OpenGL (%s)", #name);
-
-#include "renderer/qgl_proc.h"
+#include "glad/gl.h"
 
 	// input and sound systems need to be tied to the new window
 	Sys_InitInput();

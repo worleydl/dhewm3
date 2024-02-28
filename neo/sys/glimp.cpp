@@ -618,6 +618,9 @@ try_again:
 		return false;
 	}
 
+	// Replace legacy func init with glad init
+	gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress);
+
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 	// SDL1.2 has no context, and is not supported by ImGui anyway
 	D3::ImGuiHooks::Init(window, context);
