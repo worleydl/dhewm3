@@ -8,7 +8,7 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="dhewm3-uwp"
+    Name="dhewm3-uwp-roe"
     Publisher="CN=danwo"
     Version="1.0.1.0" />
 
@@ -34,10 +34,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="uwp.App">
       <uap:VisualElements
-        DisplayName="dhewm3-uwp"
+        DisplayName="Resurrection of Evil"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Port of dhewm3 for UWP"
+        Description="Expansion support for roe"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

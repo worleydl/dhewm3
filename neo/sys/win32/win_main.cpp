@@ -1078,7 +1078,13 @@ int main(int argc, char *argv[]) {
 	if ( argc > 1 ) {
 		common->Init( argc-1, &argv[1] );
 	} else {
-		common->Init( 0, NULL );
+		char* args[] = {
+			(char*)"+set",
+			(char*)"fs_game",
+			(char*)"d3xp",
+			NULL
+		};
+		common->Init( 3, args );
 	}
 
 	// hide or show the early console as necessary

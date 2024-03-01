@@ -107,7 +107,7 @@ bool idModelExport::CheckMayaInstall( void ) {
 		return false;
 	}
 	return true;
-#else
+#elif not _UWP
 	HKEY	hKey;
 	long	lres;
 
@@ -119,6 +119,8 @@ bool idModelExport::CheckMayaInstall( void ) {
 		return false;
 	}
 	return true;
+#else
+	return false;
 #endif
 }
 

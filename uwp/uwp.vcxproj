@@ -259,6 +259,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(ProjectDir)\..\Release\d3xp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="$(ProjectDir)\..\uwpdep\SDL2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

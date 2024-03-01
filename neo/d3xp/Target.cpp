@@ -993,7 +993,7 @@ void idTarget_SetInfluence::Event_Activate( idEntity *activator ) {
 	idEntity *ent;
 	idLight *light;
 	idSound *sound;
-	idStaticEntity *generic;
+	idStaticEntity *genericEnt;
 	const char *parm;
 	const char *skin;
 	bool update;
@@ -1056,10 +1056,10 @@ void idTarget_SetInfluence::Event_Activate( idEntity *activator ) {
 		if ( ent == NULL ) {
 			continue;
 		}
-		generic = static_cast<idStaticEntity*>( ent );
-		color = generic->spawnArgs.GetVector( "color_demonic" );
+		genericEnt = static_cast<idStaticEntity*>( ent );
+		color = genericEnt->spawnArgs.GetVector( "color_demonic" );
 		colorTo.Set( color.x, color.y, color.z, 1.0f );
-		generic->Fade( colorTo, spawnArgs.GetFloat( "fade_time", "0.25" ) );
+		genericEnt->Fade( colorTo, spawnArgs.GetFloat( "fade_time", "0.25" ) );
 	}
 
 	for ( i = 0; i < lightList.Num(); i++ ) {
@@ -1176,7 +1176,7 @@ void idTarget_SetInfluence::Event_RestoreInfluence() {
 	idEntity *ent;
 	idLight *light;
 	idSound *sound;
-	idStaticEntity *generic;
+	idStaticEntity *genericEnt;
 	bool update;
 	idVec3 color;
 	idVec4 colorTo;
@@ -1194,9 +1194,9 @@ void idTarget_SetInfluence::Event_RestoreInfluence() {
 		if ( ent == NULL ) {
 			continue;
 		}
-		generic = static_cast<idStaticEntity*>( ent );
+		genericEnt = static_cast<idStaticEntity*>( ent );
 		colorTo.Set( 1.0f, 1.0f, 1.0f, 1.0f );
-		generic->Fade( colorTo, spawnArgs.GetFloat( "fade_time", "0.25" ) );
+		genericEnt->Fade( colorTo, spawnArgs.GetFloat( "fade_time", "0.25" ) );
 	}
 
 	for ( i = 0; i < lightList.Num(); i++ ) {

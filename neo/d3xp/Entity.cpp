@@ -2632,6 +2632,9 @@ bool idEntity::RunPhysics( void ) {
 	idEntity *	part, *blockedPart, *blockingEntity;
 	bool		moved;
 
+	// UWP init fixes
+	blockingEntity = nullptr;
+
 	// don't run physics if not enabled
 	if ( !( thinkFlags & TH_PHYSICS ) ) {
 		// however do update any animation controllers

@@ -23,11 +23,14 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{10BF0A56-EBD2-39EB-B0E6-70C0BE3A6B38}</ProjectGuid>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
-    <Keyword>Win32Proj</Keyword>
-    <Platform>x64</Platform>
+    <WindowsTargetPlatformMinVersion>10.0.18362.0</WindowsTargetPlatformMinVersion>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <ProjectName>d3xp</ProjectName>
-    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+    <MinimalCoreWin>true</MinimalCoreWin>
+    <CppWinRTOptimized>true</CppWinRTOptimized>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -114,9 +117,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>Debug\idlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>vccorlibd.lib;msvcrtd.lib;WindowsApp.lib;Debug\idlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /nodefaultlib:vccorlibd /nodefaultlib:msvcrtd /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/dev/hdr/dhewm3/Debug/d3xp.lib</ImportLibrary>
@@ -142,7 +145,7 @@
       <TreatSpecificWarningsAsErrors>4840;4306;4311;4312;4302</TreatSpecificWarningsAsErrors>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;GAME_DLL;_D3XP;CTF;D3_OSTYPE="windows";D3_SIZEOFPTR=8;_ALLOW_KEYWORD_MACROS;WINVER=0x0501;_WIN32_WINNT=0x0501;CMAKE_INTDIR="Release";d3xp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_UWP;_WINDOWS;NDEBUG;GAME_DLL;_D3XP;CTF;D3_OSTYPE="windows";D3_SIZEOFPTR=8;_ALLOW_KEYWORD_MACROS;WINVER=0x0501;_WIN32_WINNT=0x0501;CMAKE_INTDIR="Release";d3xp_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -160,9 +163,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>Release\idlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>vccorlib.lib;msvcrt.lib;WindowsApp.lib;Release\idlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /nodefaultlib:vccorlib /nodefaultlib:msvcrt /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/dev/hdr/dhewm3/Release/d3xp.lib</ImportLibrary>
