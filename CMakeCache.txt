@@ -76,6 +76,9 @@ CMAKE_EXE_LINKER_FLAGS_RELEASE:STRING=/INCREMENTAL:NO
 //Flags used by the linker during RELWITHDEBINFO builds.
 CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
 
+//Value Computed by CMake.
+CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=C:/dev/hdr/dhewm3/CMakeFiles/pkgRedirects
+
 //User executables (bin)
 CMAKE_INSTALL_BINDIR:PATH=bin
 
@@ -272,6 +275,9 @@ OPENAL_INCLUDE_DIR:PATH=C:/dev/hdr/dhewm3-libs/x86_64-w64-mingw32/include/AL
 //Path to a library.
 OPENAL_LIBRARY:FILEPATH=C:/dev/hdr/dhewm3-libs/x86_64-w64-mingw32/lib/OpenAL32.lib
 
+//Arguments to supply to pkg-config
+PKG_CONFIG_ARGN:STRING=
+
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
 
@@ -321,9 +327,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=c:/dev/hdr/dhewm3
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=21
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=29
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=0
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=1
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=C:/Program Files/CMake/bin/cmake.exe
 //Path to cpack program executable.
@@ -376,6 +382,12 @@ CMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files/Microsoft Visual Studio/2022/
 CMAKE_GENERATOR_PLATFORM:INTERNAL=x64
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
+//Test CMAKE_HAVE_LIBC_PTHREAD
+CMAKE_HAVE_LIBC_PTHREAD:INTERNAL=
+//Have library pthreads
+CMAKE_HAVE_PTHREADS_CREATE:INTERNAL=
+//Have library pthread
+CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=
 //Have include pthread.h
 CMAKE_HAVE_PTHREAD_H:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
@@ -447,7 +459,7 @@ CMAKE_RC_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RC_FLAGS_RELWITHDEBINFO
 CMAKE_RC_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Path to CMake installation.
-CMAKE_ROOT:INTERNAL=C:/Program Files/CMake/share/cmake-3.21
+CMAKE_ROOT:INTERNAL=C:/Program Files/CMake/share/cmake-3.29
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS
 CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
@@ -489,13 +501,15 @@ FIND_PACKAGE_MESSAGE_DETAILS_SDL2:INTERNAL=[C:/dev/hdr/dhewm3-libs/x86_64-w64-mi
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //Details about finding ZLIB
-FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[C:/dev/hdr/dhewm3-libs/x86_64-w64-mingw32/lib/zlib1.lib][C:/dev/hdr/dhewm3-libs/x86_64-w64-mingw32/include][v1.2.7()]
+FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[C:/dev/hdr/dhewm3-libs/x86_64-w64-mingw32/lib/zlib1.lib][C:/dev/hdr/dhewm3-libs/x86_64-w64-mingw32/include][c ][v1.2.7()]
 //Have MFC?
 MFC_HAVE_MFC:INTERNAL=0
 //ADVANCED property for variable: OPENAL_INCLUDE_DIR
 OPENAL_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENAL_LIBRARY
 OPENAL_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PKG_CONFIG_ARGN
+PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 SDL2_LIBRARY_TEMP:INTERNAL=C:/dev/hdr/dhewm3-libs/x86_64-w64-mingw32/lib/SDL2.lib

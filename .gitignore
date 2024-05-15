@@ -15,3 +15,15 @@
 
 /neo/CMakeSettings.json
 CMakeFiles/*
+
+AppPackages/**
+Debug/**
+Release/**
+base.dir/**
+d3xp.dir/**
+idlib.dir/**
+packages/**
+
+uwp/BundleArtifacts/**
+uwp/GeneratedFiles/**
+x64/**
