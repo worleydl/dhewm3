@@ -46,6 +46,8 @@ may touch, including the editor.
 void RB_SetDefaultGLState( void ) {
 	int		i;
 
+	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 1);
+
 	qglClearDepth( 1.0f );
 	qglColor4f (1,1,1,1);
 
@@ -605,10 +607,20 @@ const void	RB_SwapBuffers( const void *data ) {
 		qglFinish();
 	}
 
+	// Blit framebuffer to screen
+	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	qglBindFramebuffer(GL_READ_FRAMEBUFFER, 1);
+	qglBlitFramebuffer(0, 0, 3840, 2160, 0, 0, 3840, 2160, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
 	// don't flip if drawing to front buffer
 	if ( !r_frontBuffer.GetBool() ) {
 		GLimp_SwapBuffers();
 	}
+
+	qglBindFramebuffer(GL_FRAMEBUFFER, 0);
+	qglClear(GL_COLOR_BUFFER_BIT);
+	qglBindFramebuffer(GL_FRAMEBUFFER, 1);
+	qglClear(GL_COLOR_BUFFER_BIT);
 }
 
 /*

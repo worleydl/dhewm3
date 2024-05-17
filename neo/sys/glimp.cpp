@@ -323,7 +323,7 @@ try_again:
 		window = SDL_CreateWindow(ENGINE_VERSION,
 									SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),
 									SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),
-									parms.width, parms.height, flags);
+									3840, 2160, flags);
 
 		if (!window) {
 			common->Warning("Couldn't set GL mode %d/%d/%d with %dx MSAA: %s",
@@ -421,7 +421,12 @@ try_again:
 		r_swapInterval.ClearModified();
 
 		// for HighDPI, window size and drawable size can differ
-		GLimp_UpdateWindowSize();
+		//GLimp_UpdateWindowSize();
+
+		// Forcing to 4k for this build
+		//SDL_GetWindowSize(window, &glConfig.vidWidth, &glConfig.vidHeight);
+		glConfig.vidWidth = 3840;
+		glConfig.vidHeight = 2160;
 
 		SetSDLIcon(); // for SDL2  this must be done after creating the window
 
@@ -625,6 +630,31 @@ try_again:
 	// SDL1.2 has no context, and is not supported by ImGui anyway
 	D3::ImGuiHooks::Init(window, context);
 #endif
+
+	// Setup a 64bit framebuffer to handle alpha blending
+	GLuint fbo, color, depth;
+	qglGenFramebuffers(1, &fbo);
+	qglGenTextures(1, &color);
+	qglGenRenderbuffers(1, &depth);
+
+	qglBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+	qglBindTexture(GL_TEXTURE_2D, color);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 3840, 2160, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+
+	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	qglFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color, 0);
+
+	qglBindRenderbuffer(GL_RENDERBUFFER, depth);
+	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 3840, 2160);
+	qglFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth);
+
+	if (qglCheckFramebufferStatus(GL_DRAW_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		fbo = fbo;
 
 	return true;
 }
