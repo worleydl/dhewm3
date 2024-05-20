@@ -86,6 +86,7 @@ typedef struct glconfig_s {
 
 	GLuint				postprocessShader;
 	GLuint				quadVAO;
+	GLuint				quadVBO;
 	GLuint				fbTexture;
 	GLuint				intTexture;
 	GLuint				intermediate;
