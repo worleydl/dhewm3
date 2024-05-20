@@ -612,13 +612,14 @@ const void	RB_SwapBuffers( const void *data ) {
 		qglFinish();
 	}
 
-	/*
 	// Use postprocess shader on fullscreen quad to present image to screen
 	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.intermediate);
 	qglActiveTexture(GL_TEXTURE0);
 	qglBindTexture(GL_TEXTURE_2D, glConfig.fbTexture);
 	qglDisable(GL_DEPTH_TEST);
 
+	qglDisable(GL_BLEND);
+	//qglBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	qglUseProgram(glConfig.postprocessShader);
 
 	// Needs unsigned version or this call won't work
@@ -627,11 +628,10 @@ const void	RB_SwapBuffers( const void *data ) {
 	qglBindBuffer(GL_ARRAY_BUFFER, glConfig.quadVBO);
 	qglBindVertexArray(glConfig.quadVAO);
 	qglDrawArrays(GL_TRIANGLES, 0, 6);
-	*/
 
 	// At this point image has gone thru tonemapping and we can blit the intermediate fbo to the screen fbo
 	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-	qglBindFramebuffer(GL_READ_FRAMEBUFFER, glConfig.fbo);
+	qglBindFramebuffer(GL_READ_FRAMEBUFFER, glConfig.intermediate);
 	qglBlitFramebuffer(0, 0, 3840, 2160, 0, 0, 3840, 2160, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
 	// don't flip if drawing to front buffer

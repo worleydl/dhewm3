@@ -525,7 +525,7 @@ void R_LoadARBProgram( int progIndex ) {
 		else {
 			extraLines = extraLinesTonemapped;
 		}
-		extraLines = extraLinesTonemapped;
+		extraLines = extraLinesDefault;
 
 
 		int fullLen = strlen( start ) + strlen( tmpres ) + strlen( extraLines );
