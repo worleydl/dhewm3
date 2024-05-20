@@ -127,7 +127,7 @@ const char* post_process_f =
 "uniform sampler2D screenTexture;\n"
 "void main()\n"
 "{\n"
-"	fragColor = texture(screenTexture, texCoords);\n"
+"	fragColor = texture(screenTexture, texCoords).rgba;\n"
 "}\n";
 
 
@@ -662,8 +662,8 @@ try_again:
 	D3::ImGuiHooks::Init(window, context);
 #endif
 
-	// Setup a 64bit framebuffer to handle alpha blending
-	GLuint fbo, color, depth;
+	GLuint fbo, color, depth, intermediate, intcolor, intdepth;
+	// Primary render fbo
 	qglGenFramebuffers(1, &fbo);
 	qglGenTextures(1, &color);
 	qglGenRenderbuffers(1, &depth);
@@ -683,6 +683,27 @@ try_again:
 	qglBindRenderbuffer(GL_RENDERBUFFER, depth);
 	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 3840, 2160);
 	qglFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth);
+
+	// Intermediate fbo used for post-process tonemapping, keep it 16bpc then blit to 10bpc to bypass alpha issues
+	qglGenFramebuffers(1, &intermediate);
+	qglGenTextures(1, &intcolor);
+	qglGenRenderbuffers(1, &intdepth);
+
+	qglBindFramebuffer(GL_FRAMEBUFFER, intermediate);
+
+	qglBindTexture(GL_TEXTURE_2D, intcolor);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 3840, 2160, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+
+	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, intcolor, 0);
+
+	qglBindRenderbuffer(GL_RENDERBUFFER, intdepth);
+	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 3840, 2160);
+	qglFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, intdepth);
 
 	GLuint wtf;
 	if ((wtf = qglCheckFramebufferStatus(GL_FRAMEBUFFER)) != GL_FRAMEBUFFER_COMPLETE)
@@ -736,6 +757,8 @@ try_again:
 	glConfig.quadVBO = vbo;
 	glConfig.fbTexture = color;
 	glConfig.fbo = fbo;
+	glConfig.intermediate = intermediate;
+	glConfig.intTexture = intcolor;
 
 	return true;
 }
