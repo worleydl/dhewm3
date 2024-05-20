@@ -611,8 +611,8 @@ const void	RB_SwapBuffers( const void *data ) {
 	}
 
 	// Use postprocess shader on fullscreen quad to present image to screen
-	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.intermediate);
-	qglActiveTexture(glConfig.intTexture);
+	qglBindFramebuffer(GL_FRAMEBUFFER, 0);
+	qglActiveTexture(GL_TEXTURE0);
 	qglBindTexture(GL_TEXTURE_2D, glConfig.fbTexture);
 	qglDisable(GL_DEPTH_TEST);
 
@@ -624,10 +624,6 @@ const void	RB_SwapBuffers( const void *data ) {
 	qglBindVertexArray(glConfig.quadVAO);
 	qglDrawArrays(GL_TRIANGLES, 0, 6);
 
-	// Blit framebuffer to screen
-	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-	qglBindFramebuffer(GL_READ_FRAMEBUFFER, glConfig.intermediate);
-	qglBlitFramebuffer(0, 0, 3840, 2160, 0, 0, 3840, 2160, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
 	// don't flip if drawing to front buffer
 	if ( !r_frontBuffer.GetBool() ) {
@@ -635,7 +631,7 @@ const void	RB_SwapBuffers( const void *data ) {
 	}
 
 	qglClear(GL_COLOR_BUFFER_BIT);
-	qglBindFramebuffer(GL_FRAMEBUFFER, 1);
+	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.fbo);
 
 	
 }
