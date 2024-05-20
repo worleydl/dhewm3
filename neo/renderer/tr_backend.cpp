@@ -63,12 +63,6 @@ void RB_SetDefaultGLState( void ) {
 	qglEnableClientState( GL_TEXTURE_COORD_ARRAY );
 	qglDisableClientState( GL_COLOR_ARRAY );
 
-	// Disable vertex/fragment shaders
-	qglEnable(GL_VERTEX_PROGRAM_ARB);
-	qglEnable(GL_FRAGMENT_PROGRAM_ARB);
-	qglDisable(GL_VERTEX_SHADER);
-	qglDisable(GL_FRAGMENT_SHADER);
-
 	//
 	// make sure our GL state vector is set correctly
 	//
@@ -569,9 +563,6 @@ const void	RB_SwapBuffers( const void *data ) {
 
 		qglDisable( GL_VERTEX_PROGRAM_ARB );
 		qglDisable( GL_FRAGMENT_PROGRAM_ARB );
-		qglEnable(GL_VERTEX_SHADER);
-		qglEnable(GL_FRAGMENT_SHADER);
-
 
 		qglBlendEquation( GL_FUNC_ADD );
 
@@ -621,8 +612,9 @@ const void	RB_SwapBuffers( const void *data ) {
 		qglFinish();
 	}
 
+	/*
 	// Use postprocess shader on fullscreen quad to present image to screen
-	qglBindFramebuffer(GL_FRAMEBUFFER, 0);
+	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.intermediate);
 	qglActiveTexture(GL_TEXTURE0);
 	qglBindTexture(GL_TEXTURE_2D, glConfig.fbTexture);
 	qglDisable(GL_DEPTH_TEST);
@@ -635,12 +627,21 @@ const void	RB_SwapBuffers( const void *data ) {
 	qglBindBuffer(GL_ARRAY_BUFFER, glConfig.quadVBO);
 	qglBindVertexArray(glConfig.quadVAO);
 	qglDrawArrays(GL_TRIANGLES, 0, 6);
+	*/
+
+	// At this point image has gone thru tonemapping and we can blit the intermediate fbo to the screen fbo
+	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	qglBindFramebuffer(GL_READ_FRAMEBUFFER, glConfig.fbo);
+	qglBlitFramebuffer(0, 0, 3840, 2160, 0, 0, 3840, 2160, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
 	// don't flip if drawing to front buffer
 	if ( !r_frontBuffer.GetBool() ) {
 		GLimp_SwapBuffers();
 	}
 
+	
+	qglClear(GL_COLOR_BUFFER_BIT);
+	qglBindFramebuffer(GL_FRAMEBUFFER, 0);
 	qglClear(GL_COLOR_BUFFER_BIT);
 	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.fbo);
 	qglClear(GL_COLOR_BUFFER_BIT);
