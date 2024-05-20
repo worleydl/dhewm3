@@ -254,6 +254,11 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Content Include="C:\dev\uwp\librecoop\build_winrt\Release\librecoop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="$(ProjectDir)\..\Release\base.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

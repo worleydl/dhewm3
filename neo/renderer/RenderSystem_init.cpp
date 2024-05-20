@@ -616,8 +616,8 @@ void R_InitOpenGL( void ) {
 	for ( i = 0 ; i < 2 ; i++ ) {
 		// set the parameters we are trying
 		//R_GetModeInfo( &glConfig.vidWidth, &glConfig.vidHeight, r_mode.GetInteger() );
-		glConfig.vidWidth = 3140;
-		glConfig.vidHeight = 2160;
+		glConfig.vidWidth = 2048;
+		glConfig.vidHeight = 1152;
 
 		parms.width = glConfig.vidWidth;
 		parms.height = glConfig.vidHeight;
