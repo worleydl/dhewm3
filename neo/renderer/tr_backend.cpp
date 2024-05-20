@@ -45,10 +45,13 @@ may touch, including the editor.
 void RB_SetDefaultGLState( void ) {
 	int		i;
 
-	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 1);
+	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.fbo);
 
 	qglClearDepth( 1.0f );
 	qglColor4f (1,1,1,1);
+
+	qglClear(GL_COLOR_BUFFER_BIT);
+	qglEnable(GL_DEPTH_TEST);
 
 	// the vertex array is always enabled
 	qglEnableClientState( GL_VERTEX_ARRAY );
@@ -604,9 +607,23 @@ const void	RB_SwapBuffers( const void *data ) {
 		qglFinish();
 	}
 
+	// Use postprocess shader on fullscreen quad to present image to screen
+	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.intermediate);
+	qglActiveTexture(glConfig.intTexture);
+	qglBindTexture(GL_TEXTURE_2D, glConfig.fbTexture);
+	qglDisable(GL_DEPTH_TEST);
+
+	qglUseProgram(glConfig.postprocessShader);
+
+	// Some output renders if we don't call this, but the menus are garbled text like its sampling from wrong texture
+	//qglUniform1i(qglGetUniformLocation(glConfig.postprocessShader, "screenTexture"), glConfig.fbTexture);
+
+	qglBindVertexArray(glConfig.quadVAO);
+	qglDrawArrays(GL_TRIANGLES, 0, 6);
+
 	// Blit framebuffer to screen
 	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-	qglBindFramebuffer(GL_READ_FRAMEBUFFER, 1);
+	qglBindFramebuffer(GL_READ_FRAMEBUFFER, glConfig.intermediate);
 	qglBlitFramebuffer(0, 0, 3840, 2160, 0, 0, 3840, 2160, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
 	// don't flip if drawing to front buffer
@@ -614,10 +631,10 @@ const void	RB_SwapBuffers( const void *data ) {
 		GLimp_SwapBuffers();
 	}
 
-	qglBindFramebuffer(GL_FRAMEBUFFER, 0);
 	qglClear(GL_COLOR_BUFFER_BIT);
 	qglBindFramebuffer(GL_FRAMEBUFFER, 1);
-	qglClear(GL_COLOR_BUFFER_BIT);
+
+	
 }
 
 /*

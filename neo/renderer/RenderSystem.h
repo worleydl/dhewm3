@@ -29,6 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERER_H__
 #define __RENDERER_H__
 
+#include "glad/gl.h"
 #include "framework/Common.h"
 #include "renderer/Model.h"
 
@@ -80,6 +81,13 @@ typedef struct glconfig_s {
 	bool				depthBoundsTestAvailable;
 
 	int					vidWidth, vidHeight;	// passed to R_BeginFrame
+
+	GLuint				postprocessShader;
+	GLuint				quadVAO;
+	GLuint				fbTexture;
+	GLuint				intTexture;
+	GLuint				intermediate;
+	GLuint				fbo;
 
 	int					displayFrequency;
 
