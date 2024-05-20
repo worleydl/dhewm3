@@ -47,6 +47,11 @@ void RB_SetDefaultGLState( void ) {
 
 	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.fbo);
 
+	// Try to reset back to fixed-pipeline
+	qglBindVertexArray(0);
+	qglBindBuffer(GL_ARRAY_BUFFER, 0);
+	qglUseProgram(0);
+
 	qglClearDepth( 1.0f );
 	qglColor4f (1,1,1,1);
 
@@ -57,6 +62,12 @@ void RB_SetDefaultGLState( void ) {
 	qglEnableClientState( GL_VERTEX_ARRAY );
 	qglEnableClientState( GL_TEXTURE_COORD_ARRAY );
 	qglDisableClientState( GL_COLOR_ARRAY );
+
+	// Disable vertex/fragment shaders
+	qglEnable(GL_VERTEX_PROGRAM_ARB);
+	qglEnable(GL_FRAGMENT_PROGRAM_ARB);
+	qglDisable(GL_VERTEX_SHADER);
+	qglDisable(GL_FRAGMENT_SHADER);
 
 	//
 	// make sure our GL state vector is set correctly
@@ -558,6 +569,9 @@ const void	RB_SwapBuffers( const void *data ) {
 
 		qglDisable( GL_VERTEX_PROGRAM_ARB );
 		qglDisable( GL_FRAGMENT_PROGRAM_ARB );
+		qglEnable(GL_VERTEX_SHADER);
+		qglEnable(GL_FRAGMENT_SHADER);
+
 
 		qglBlendEquation( GL_FUNC_ADD );
 
@@ -615,12 +629,12 @@ const void	RB_SwapBuffers( const void *data ) {
 
 	qglUseProgram(glConfig.postprocessShader);
 
-	// Some output renders if we don't call this, but the menus are garbled text like its sampling from wrong texture
-	//qglUniform1i(qglGetUniformLocation(glConfig.postprocessShader, "screenTexture"), glConfig.fbTexture);
+	// Needs unsigned version or this call won't work
+	qglUniform1ui(qglGetUniformLocation(glConfig.postprocessShader, "screenTexture"), glConfig.fbTexture);
 
+	qglBindBuffer(GL_ARRAY_BUFFER, glConfig.quadVBO);
 	qglBindVertexArray(glConfig.quadVAO);
 	qglDrawArrays(GL_TRIANGLES, 0, 6);
-
 
 	// don't flip if drawing to front buffer
 	if ( !r_frontBuffer.GetBool() ) {
@@ -629,8 +643,9 @@ const void	RB_SwapBuffers( const void *data ) {
 
 	qglClear(GL_COLOR_BUFFER_BIT);
 	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.fbo);
-
-	
+	qglClear(GL_COLOR_BUFFER_BIT);
+	qglActiveTexture(GL_TEXTURE0);
+	qglBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
 }
 
 /*

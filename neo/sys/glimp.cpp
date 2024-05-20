@@ -651,6 +651,7 @@ try_again:
 	qglEnableVertexAttribArray(1);
 	qglVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 	qglBindVertexArray(0);
+	qglBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
 	// Setup post-process shader
@@ -683,6 +684,7 @@ try_again:
 
 	glConfig.postprocessShader = prog;
 	glConfig.quadVAO = vao;
+	glConfig.quadVBO = vbo;
 	glConfig.fbTexture = color;
 	glConfig.fbo = fbo;
 
