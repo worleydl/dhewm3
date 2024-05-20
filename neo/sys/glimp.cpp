@@ -119,6 +119,18 @@ const char* post_process_v =
 "	texCoords = inTexCoords;\n"
 " }\n";
 
+
+/*
+	Taken from RBDoom3-BFG filmic impl
+
+	float a = 2.51;
+	float b = 0.03;
+	float c = 2.43;
+	float d = 0.59;
+	float e = 0.14;
+	return saturate((color * (a * color + b)) / (color * (c * x + d) + e));
+	*/
+
 const char* post_process_f =
 "#version 330 core\n"
 "out vec3 fragColor;\n"
@@ -126,20 +138,13 @@ const char* post_process_f =
 "uniform sampler2D screenTexture;\n"
 "void main()\n"
 "{\n"
-"	float A = 0.15;\n"
-"	float B = 0.50;\n"
-"	float C = 0.10;\n"
-"	float D = 0.20;\n"
-"	float E = 0.02;\n"
-"	float F = 0.30;\n"
-"	float W = 11.2;\n"
-"	float exposure = 2.0;\n"
+"	float a = 2.51;\n"
+"	float b = 0.03;\n"
+"	float c = 2.43;\n"
+"	float d = 0.59;\n"
+"	float e = 0.14;\n"
 "	vec3 color = texture(screenTexture, texCoords).rgb;\n"
-"	color *= exposure;\n"
-"	color = ((color * (A * color + C * B) + D * E) / (color * (A * color + B) + D * F)) - E / F;\n"
-"	float white = ((W * (A * W + C * B) + D * E) / (W * (A * W + B) + D * F)) - E / F;\n"
-"	color /= white;\n"
-"   color = pow(color, vec3(1.0 / 2.2));\n"
+"	color = (color * (a * color + b)) / (color * (c * color + d) + e);\n"
 "	fragColor = color;\n"
 "}\n";
 
