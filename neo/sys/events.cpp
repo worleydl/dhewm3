@@ -1371,6 +1371,9 @@ sysEvent_t Sys_GetEvent() {
 
 #if SDL_VERSION_ATLEAST(2, 0, 0) // gamecontroller/gamepad not supported in SDL1
 		case SDL_CONTROLLERBUTTONDOWN:
+			if( (ev.cbutton.button == SDL_CONTROLLER_BUTTON_X) && sessLocal.GetActiveMenu() != NULL) {
+				SDL_StartTextInput();  // Controller bind menu will hide text on bind.  It still flickers would be better to detect that menu specifically 
+			}
 		case SDL_CONTROLLERBUTTONUP:
 		{
 			if ( !in_useGamepad.GetBool() ) {

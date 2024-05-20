@@ -26,6 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+#include "SDL.h"
 #include "sys/platform.h"
 #include "idlib/LangDict.h"
 #include "framework/async/AsyncNetwork.h"
@@ -863,6 +864,7 @@ void idSessionLocal::HandleMainMenuCommands( const char *menuCommand ) {
 				}
 				idKeyInput::SetBinding( key, bind );
 				guiMainMenu->SetKeyBindingNames();
+				SDL_StopTextInput(); // Hacky but X button shows keyboard in menu so this hides it on bind
 			}
 			continue;
 		}
