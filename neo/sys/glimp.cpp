@@ -27,6 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #include <SDL.h>
+#include <vector>
 
 #include "sys/platform.h"
 #include "framework/Licensee.h"
@@ -120,12 +121,26 @@ const char* post_process_v =
 
 const char* post_process_f =
 "#version 330 core\n"
-"out vec4 fragColor;\n"
+"out vec3 fragColor;\n"
 "in vec2 texCoords;\n"
 "uniform sampler2D screenTexture;\n"
 "void main()\n"
 "{\n"
-"	fragColor = texture(screenTexture, texCoords).rgba;\n"
+"	float A = 0.15;\n"
+"	float B = 0.50;\n"
+"	float C = 0.10;\n"
+"	float D = 0.20;\n"
+"	float E = 0.02;\n"
+"	float F = 0.30;\n"
+"	float W = 11.2;\n"
+"	float exposure = 2.0;\n"
+"	vec3 color = texture(screenTexture, texCoords).rgb;\n"
+"	color *= exposure;\n"
+"	color = ((color * (A * color + C * B) + D * E) / (color * (A * color + B) + D * F)) - E / F;\n"
+"	float white = ((W * (A * W + C * B) + D * E) / (W * (A * W + B) + D * F)) - E / F;\n"
+"	color /= white;\n"
+"   color = pow(color, vec3(1.0 / 2.2));\n"
+"	fragColor = color;\n"
 "}\n";
 
 
@@ -701,6 +716,13 @@ try_again:
 
 	if (!result) {
 		fbo = fbo;
+		GLint logSize = 0;
+
+		qglGetShaderiv(prog, GL_INFO_LOG_LENGTH, &logSize);
+
+		std::vector<GLchar> message = std::vector<GLchar>(logSize);
+
+		qglGetShaderInfoLog(prog, logSize, nullptr, &message[0]);
 	}
 
 	glConfig.postprocessShader = prog;

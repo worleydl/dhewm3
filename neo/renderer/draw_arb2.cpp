@@ -525,7 +525,7 @@ void R_LoadARBProgram( int progIndex ) {
 		else {
 			extraLines = extraLinesTonemapped;
 		}
-		extraLines = extraLinesDefault;
+		extraLines = extraLinesDefault;  // Switched to postprocess tonemap, above can be deleted
 
 
 		int fullLen = strlen( start ) + strlen( tmpres ) + strlen( extraLines );
