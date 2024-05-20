@@ -99,6 +99,37 @@ If you have questions concerning this license or the applicable additional terms
 
 #endif // _WIN32 and ID_ALLOW_TOOLS
 
+const float fs_quad_verts[] = {
+	// positions   // texCoords
+	 1.0f, -1.0f,  1.0f, 0.0f,
+	-1.0f, -1.0f,  0.0f, 0.0f,
+	-1.0f,  1.0f,  0.0f, 1.0f,
+
+	 1.0f,  1.0f,  1.0f, 1.0f,
+	 1.0f, -1.0f,  1.0f, 0.0f,
+	-1.0f,  1.0f,  0.0f, 1.0f };
+
+const char* post_process_v =
+"#version 330 core\n"
+"layout(location = 0) in vec2 inPos;\n"
+"layout(location = 1) in vec2 inTexCoords;\n"
+"out vec2 texCoords;\n"
+"void main()\n"
+"{\n"
+"	gl_Position = vec4(inPos.x, inPos.y, 0.0, 1.0);\n"
+"	texCoords = inTexCoords;\n"
+" }\n";
+
+const char* post_process_f =
+"#version 330 core\n"
+"out vec4 fragColor;\n"
+"in vec2 texCoords;\n"
+"uniform sampler2D screenTexture;\n"
+"void main()\n"
+"{\n"
+"	fragColor = texture(screenTexture, texCoords);\n"
+"}\n";
+
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 static SDL_Window *window = NULL;
@@ -632,7 +663,7 @@ try_again:
 #endif
 
 	// Setup a 64bit framebuffer to handle alpha blending
-	GLuint fbo, color, depth;
+	GLuint fbo, color, depth, intermediate, intcolor, intdepth;
 	qglGenFramebuffers(1, &fbo);
 	qglGenTextures(1, &color);
 	qglGenRenderbuffers(1, &depth);
@@ -647,14 +678,86 @@ try_again:
 	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	qglFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color, 0);
+	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color, 0);
 
 	qglBindRenderbuffer(GL_RENDERBUFFER, depth);
 	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 3840, 2160);
-	qglFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth);
+	qglFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth);
 
-	if (qglCheckFramebufferStatus(GL_DRAW_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	qglGenFramebuffers(1, &intermediate);
+	qglGenTextures(1, &intcolor);
+	qglGenRenderbuffers(1, &intdepth);
+
+	qglBindFramebuffer(GL_FRAMEBUFFER, intermediate);
+
+	qglBindTexture(GL_TEXTURE_2D, intcolor);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 3840, 2160, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+
+	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, intcolor, 0);
+
+	qglBindRenderbuffer(GL_RENDERBUFFER, intdepth);
+	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 3840, 2160);
+	qglFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, intdepth);
+
+
+
+	GLuint wtf;
+	if ((wtf = qglCheckFramebufferStatus(GL_FRAMEBUFFER)) != GL_FRAMEBUFFER_COMPLETE)
 		fbo = fbo;
+
+	// Setup VAO/VBO for fullscreen quad render
+	GLuint vao, vbo;
+	qglGenVertexArrays(1, &vao);
+	qglGenBuffers(1, &vbo);
+	qglBindVertexArray(vao);
+	qglBindBuffer(GL_ARRAY_BUFFER, vbo);
+	qglBufferData(GL_ARRAY_BUFFER, sizeof(fs_quad_verts), &fs_quad_verts, GL_STATIC_DRAW);
+	qglEnableVertexAttribArray(0);
+	qglVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	qglEnableVertexAttribArray(1);
+	qglVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+	qglBindVertexArray(0);
+
+
+	// Setup post-process shader
+	GLuint vs, fs, prog; 
+
+	prog = qglCreateProgram();
+
+	if (!prog)
+		prog = prog; // Debug line
+
+	vs = qglCreateShader(GL_VERTEX_SHADER);
+	qglShaderSource(vs, 1, &post_process_v, NULL);
+	qglCompileShader(vs);
+
+	fs = qglCreateShader(GL_FRAGMENT_SHADER);
+	qglShaderSource(fs, 1, &post_process_f, NULL);
+	qglCompileShader(fs);
+
+	qglAttachShader(prog, vs);
+	qglAttachShader(prog, fs);
+
+	qglLinkProgram(prog);
+	
+	GLint result;
+	qglGetProgramiv(prog, GL_LINK_STATUS, &result);
+
+	if (!result) {
+		fbo = fbo;
+	}
+
+	glConfig.postprocessShader = prog;
+	glConfig.quadVAO = vao;
+	glConfig.fbTexture = color;
+	glConfig.intermediate = intermediate;
+	glConfig.intTexture = intcolor;
+	glConfig.fbo = fbo;
 
 	return true;
 }
