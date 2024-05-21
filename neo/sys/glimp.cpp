@@ -143,7 +143,6 @@ const char* post_process_f =
 "	fragColor = color;\n"
 "}\n";
 
-
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 static SDL_Window *window = NULL;
 static SDL_GLContext context = NULL;
@@ -355,7 +354,8 @@ try_again:
 		window = SDL_CreateWindow(ENGINE_VERSION,
 									SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),
 									SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),
-									3840, 2160, flags);
+									//3840, 2160, flags);
+									2048, 1152, flags);
 
 		if (!window) {
 			common->Warning("Couldn't set GL mode %d/%d/%d with %dx MSAA: %s",
@@ -454,8 +454,8 @@ try_again:
 
 		// Forcing to 4k for this build
 		//SDL_GetWindowSize(window, &glConfig.vidWidth, &glConfig.vidHeight);
-		glConfig.vidWidth = 3840;
-		glConfig.vidHeight = 2160;
+		glConfig.vidWidth = 2048; //3840;
+		glConfig.vidHeight = 1152; //2160;
 
 		SetSDLIcon(); // for SDL2  this must be done after creating the window
 
@@ -637,7 +637,7 @@ try_again:
 	qglBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
 	qglBindTexture(GL_TEXTURE_2D, color);
-	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 3840, 2160, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 2048, 1152, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -647,7 +647,7 @@ try_again:
 	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color, 0);
 
 	qglBindRenderbuffer(GL_RENDERBUFFER, depth);
-	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 3840, 2160);
+	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 2048, 1152);
 	qglFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth);
 
 	// Intermediate fbo used for post-process tonemapping, keep it 16bpc then blit to 10bpc to bypass alpha issues
@@ -658,7 +658,7 @@ try_again:
 	qglBindFramebuffer(GL_FRAMEBUFFER, intermediate);
 
 	qglBindTexture(GL_TEXTURE_2D, intcolor);
-	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 3840, 2160, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 2048, 1152, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -668,7 +668,7 @@ try_again:
 	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, intcolor, 0);
 
 	qglBindRenderbuffer(GL_RENDERBUFFER, intdepth);
-	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 3840, 2160);
+	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 2048, 1152);
 	qglFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, intdepth);
 
 	GLuint wtf;
