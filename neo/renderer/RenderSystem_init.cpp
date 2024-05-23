@@ -457,7 +457,10 @@ static void R_CheckPortableExtensions( void ) {
 	}
 
 	// GL_EXT_depth_bounds_test
-	glConfig.depthBoundsTestAvailable = R_CheckExtension( "GL_EXT_depth_bounds_test" );
+	glConfig.depthBoundsTestAvailable = true; // R_CheckExtension("GL_EXT_depth_bounds_test");
+	if (glConfig.depthBoundsTestAvailable) {
+		qglDepthBoundsEXT = (PFNGLDEPTHBOUNDSEXTPROC)GLimp_ExtensionPointer("glDepthBoundsEXT");
+	}
 }
 
 

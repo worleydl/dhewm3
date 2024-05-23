@@ -145,22 +145,17 @@ const char* post_process_f =
 "	outColor = ((color * (A * color + C * B) + D * E) / (color * (A * color + B) + D * F)) - E / F;\n"
 "}\n"
 
+"vec3 reinhard(vec3 x) {\n"
+"	const float L_white = 4.0;\n"
+"	return (x * (1.0 + x / (L_white * L_white))) / (1.0 + x);\n"
+"}\n"
+
 "void main()\n"
 "{\n"
-"	float exposure = 1.15;\n"
-"	vec3 W = vec3(11.2);\n"
-"	vec3 tonemappedColor;\n"
-"	vec3 Wmapped;\n"
 "	vec3 color = texture(screenTexture, texCoords).rgb;\n"
-"	uncharted_tonemap(color * exposure, tonemappedColor);\n"
-"	uncharted_tonemap(W, Wmapped);\n"
-"	vec3 white_scale = vec3(1.0) / Wmapped;\n"
-"   float srcLum = dot(color, vec3(1, 1, 1) / 3.0);\n"
-"   float dstLum = dot(tonemappedColor, vec3(1, 1, 1) / 3.0);\n"
-"	tonemappedColor = tonemappedColor * white_scale * (srcLum / dstLum);\n"
-"   tonemappedColor = pow(tonemappedColor, vec3(1.0 / 1.35));\n"
-"   fragColor = tonemappedColor;\n"
-//"	fragColor = color * white_scale;\n"
+//"   color *= 1.154976;\n" // Multiply br brightness
+"   color = pow(color, vec3(1 / 1.7));\n" // Pow by 1/gamma
+"   fragColor = color;\n"
 "}\n";
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
@@ -699,7 +694,6 @@ try_again:
 	// Primary render fbo
 	qglGenFramebuffers(1, &fbo);
 	qglGenTextures(1, &color);
-	qglGenRenderbuffers(1, &depth);
 
 	qglBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
@@ -713,10 +707,14 @@ try_again:
 
 	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color, 0);
 
-	qglBindRenderbuffer(GL_RENDERBUFFER, depth);
-	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 2048, 1152);
-	qglFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth);
+	// Create and attach depth/stencil texture to render fbo
+	qglGenTextures(1, &dsTex);
+	qglBindTexture(GL_TEXTURE_2D, dsTex);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, 2048, 1152, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, dsTex, 0);
 
+
+	// TODO: Might bring this back in if needed for a framebuffer blit, not used for now
 	// Intermediate fbo used for post-process tonemapping, keep it 16bpc then blit to 10bpc to bypass alpha issues
 	qglGenFramebuffers(1, &intermediate);
 	qglGenTextures(1, &intcolor);
