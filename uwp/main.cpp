@@ -64,6 +64,19 @@ using namespace winrt::Windows::Graphics::Display::Core;
 #pragma comment(lib, "runtimeobject.lib")
 #endif
 
+// Window state vars
+static int width, height;
+
+#include "../neo/renderer/wininfo.h"
+
+int WinInfo::getHostWidth() {
+    return width;
+}
+
+int WinInfo::getHostHeight() {
+    return height;
+}
+
 int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
     // Inject HDR mode hack
@@ -78,6 +91,8 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         if (mode.ColorSpace() == HdmiDisplayColorSpace::BT2020 && mode.RefreshRate() >= 59)
         {
             hdi.RequestSetCurrentDisplayModeAsync(mode, HdmiDisplayHdrOption::Eotf2084);
+             width = hdi.GetCurrentDisplayMode().ResolutionWidthInRawPixels();
+             height = hdi.GetCurrentDisplayMode().ResolutionHeightInRawPixels();
             break;
         }
     }

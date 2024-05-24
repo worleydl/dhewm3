@@ -25,6 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
+#include "renderer/wininfo.h"
 #include "sys/platform.h"
 
 #include "renderer/tr_local.h"
@@ -613,21 +614,21 @@ const void	RB_SwapBuffers( const void *data ) {
 	}
 
 	// Use postprocess shader on fullscreen quad to present image to screen
-	qglBindFramebuffer(GL_FRAMEBUFFER, 0);
-	qglActiveTexture(GL_TEXTURE0);
+	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.intermediate);
+	qglActiveTexture(glConfig.intTexture);
 	qglBindTexture(GL_TEXTURE_2D, glConfig.fbTexture);
 	qglDisable(GL_DEPTH_TEST);
-
 	qglDisable(GL_BLEND);
-	//qglBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	qglDisable( GL_SCISSOR_TEST );
 	qglUseProgram(glConfig.postprocessShader);
 
-	// Needs unsigned version or this call won't work
-	qglUniform1ui(qglGetUniformLocation(glConfig.postprocessShader, "screenTexture"), glConfig.fbTexture);
-
-	qglBindBuffer(GL_ARRAY_BUFFER, glConfig.quadVBO);
 	qglBindVertexArray(glConfig.quadVAO);
 	qglDrawArrays(GL_TRIANGLES, 0, 6);
+
+	// Blit to support lower res (can maybe pull this off in the shader?)
+	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	qglBindFramebuffer(GL_READ_FRAMEBUFFER, glConfig.intermediate);
+	qglBlitFramebuffer(0, 0, glConfig.vidWidth, glConfig.vidHeight, 0, 0, WinInfo::getHostWidth(), WinInfo::getHostHeight(), GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
 	// don't flip if drawing to front buffer
 	if ( !r_frontBuffer.GetBool() ) {
