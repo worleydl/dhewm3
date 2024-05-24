@@ -824,7 +824,9 @@ void Sys_Shutdown( void ) {
 	qwglSwapBuffers = NULL;
 #endif // ID_ALLOW_TOOLS
 
+#ifndef _UWP
 	CoUninitialize();
+#endif
 }
 
 //=======================================================================
