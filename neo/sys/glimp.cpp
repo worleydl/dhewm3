@@ -33,6 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "framework/Licensee.h"
 
 #include "renderer/tr_local.h"
+#include "renderer/wininfo.h"
 
 #include "sys/sys_imgui.h"
 
@@ -381,8 +382,7 @@ try_again:
 		window = SDL_CreateWindow(ENGINE_VERSION,
 									SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),
 									SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),
-									//3840, 2160, flags);
-									2048, 1152, flags);
+									WinInfo::getHostWidth(), WinInfo::getHostHeight(), flags);
 
 		if (!window) {
 			common->Warning("Couldn't set GL mode %d/%d/%d with %dx MSAA: %s",
@@ -482,10 +482,8 @@ try_again:
 		// for HighDPI, window size and drawable size can differ
 		//GLimp_UpdateWindowSize();
 
-		// Forcing to 4k for this build
-		//SDL_GetWindowSize(window, &glConfig.vidWidth, &glConfig.vidHeight);
-		glConfig.vidWidth = 2048; //3840;
-		glConfig.vidHeight = 1152; //2160;
+		glConfig.vidWidth = parms.width;
+		glConfig.vidHeight = parms.height;
 
 		SetSDLIcon(); // for SDL2  this must be done after creating the window
 
@@ -690,7 +688,7 @@ try_again:
 	D3::ImGuiHooks::Init(window, context);
 #endif
 
-	GLuint fbo, color, depth, intermediate, intcolor, intdepth;
+	GLuint fbo, color, dsTex, intermediate, intcolor, intdsTex;
 	// Primary render fbo
 	qglGenFramebuffers(1, &fbo);
 	qglGenTextures(1, &color);
@@ -698,10 +696,10 @@ try_again:
 	qglBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
 	qglBindTexture(GL_TEXTURE_2D, color);
-	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 2048, 1152, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, glConfig.vidWidth, glConfig.vidHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	qglTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
@@ -710,7 +708,7 @@ try_again:
 	// Create and attach depth/stencil texture to render fbo
 	qglGenTextures(1, &dsTex);
 	qglBindTexture(GL_TEXTURE_2D, dsTex);
-	qglTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, 2048, 1152, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, glConfig.vidWidth, glConfig.vidHeight, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, dsTex, 0);
 
 
@@ -718,12 +716,11 @@ try_again:
 	// Intermediate fbo used for post-process tonemapping, keep it 16bpc then blit to 10bpc to bypass alpha issues
 	qglGenFramebuffers(1, &intermediate);
 	qglGenTextures(1, &intcolor);
-	qglGenRenderbuffers(1, &intdepth);
 
 	qglBindFramebuffer(GL_FRAMEBUFFER, intermediate);
 
 	qglBindTexture(GL_TEXTURE_2D, intcolor);
-	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 2048, 1152, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, glConfig.vidWidth, glConfig.vidHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -732,9 +729,10 @@ try_again:
 
 	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, intcolor, 0);
 
-	qglBindRenderbuffer(GL_RENDERBUFFER, intdepth);
-	qglRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 2048, 1152);
-	qglFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, intdepth);
+	qglGenTextures(1, &intdsTex);
+	qglBindTexture(GL_TEXTURE_2D, intdsTex);
+	qglTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, glConfig.vidWidth, glConfig.vidHeight, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+	qglFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, intdsTex, 0);
 
 	GLuint wtf;
 	if ((wtf = qglCheckFramebufferStatus(GL_FRAMEBUFFER)) != GL_FRAMEBUFFER_COMPLETE)
@@ -797,6 +795,9 @@ try_again:
 	glConfig.fbo = fbo;
 	glConfig.intermediate = intermediate;
 	glConfig.intTexture = intcolor;
+
+	// Needs unsigned version or this call won't work
+	qglUniform1ui(qglGetUniformLocation(glConfig.postprocessShader, "screenTexture"), glConfig.fbTexture);
 
 	return true;
 }
