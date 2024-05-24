@@ -3117,7 +3117,9 @@ void idCommonLocal::Shutdown( void ) {
 
 	Sys_ShutdownThreads();
 
+#ifndef _UWP
 	SDL_Quit();
+#endif
 }
 
 /*

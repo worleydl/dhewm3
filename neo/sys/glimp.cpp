@@ -777,10 +777,13 @@ void GLimp_Shutdown() {
 		context = NULL;
 	}
 
+#ifndef _UWP
 	if (window) {
 		SDL_DestroyWindow(window);
 		window = NULL;
 	}
+#endif
+
 #endif
 }
 
