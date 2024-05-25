@@ -10,7 +10,7 @@
   <Identity
     Name="dhewm3-uwp"
     Publisher="CN=danwo"
-    Version="1.0.1.0" />
+    Version="1.0.6.0" />
 
   <mp:PhoneIdentity PhoneProductId="ecb9d0ff-6f1a-447e-98c2-882da9ef5683" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
