@@ -25,5 +25,9 @@ idlib.dir/**
 packages/**
 
 uwp/BundleArtifacts/**
-uwp/GeneratedFiles/**
+uwp/Generated Files/**
+uwp/dhewm3-uwp_TemporaryKey.pfx
+uwp/packages.config
+
 x64/**
+*.vcxproj.user
