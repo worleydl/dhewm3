@@ -26,6 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+#include <chrono>
 #include <SDL.h>
 
 #include "sys/platform.h"
@@ -63,6 +64,9 @@ If you have questions concerning this license or the applicable additional terms
 
 extern idCVar in_useGamepad; // from UsercmdGen.cpp
 extern idCVar joy_deadZone;  // ditto
+
+// Show imgui settings
+extern void Com_Dhewm3Settings_f(const idCmdArgs& args);
 
 // NOTE: g++-4.7 doesn't like when this is static (for idCmdSystem::ArgCompletion_String<kbdNames>)
 const char *_in_kbdNames[] = {
@@ -142,6 +146,10 @@ static bool buttonStates[K_LAST_KEY];
 static float joyAxis[MAX_JOYSTICK_AXIS];
 
 static idList<sysEvent_t> event_overflow;
+
+using namespace std::chrono;
+
+static steady_clock::time_point last_combo_press = high_resolution_clock::now();
 
 struct scancodename_t {
 	int sdlScancode;
@@ -1393,6 +1401,7 @@ sysEvent_t Sys_GetEvent() {
 			res.evType = SE_KEY;
 			res.evValue2 = ev.cbutton.state == SDL_PRESSED ? 1 : 0;
 
+			auto now = high_resolution_clock::now();
 			// special case: always treat the start button as escape so it opens/closes the menu
 			// (also makes that button non-bindable)
 			if ( ev.cbutton.button == SDL_CONTROLLER_BUTTON_START ) {
@@ -1407,6 +1416,16 @@ sysEvent_t Sys_GetEvent() {
 				mouse_polls.Append( mouse_poll_t(M_ACTION1, res.evValue2) );
 				res.evValue = K_MOUSE1;
 				return res;
+			// Inject show settings shortcut when both sticks are pressed, maybe able to process this from joy polls later
+			} else if (ev.cbutton.button == SDL_CONTROLLER_BUTTON_LEFTSTICK 
+				&& duration_cast<milliseconds>(now - last_combo_press).count() > 250)
+			{
+				SDL_GameController* gc = SDL_GameControllerFromInstanceID(ev.cbutton.which);
+				if (SDL_GameControllerGetButton(gc, SDL_CONTROLLER_BUTTON_RIGHTSTICK)) {
+					last_combo_press = high_resolution_clock::now();
+					idCmdArgs args;
+					Com_Dhewm3Settings_f(args);
+				}
 			}
 
 			sys_jEvents jEvent =  mapjoybutton( (SDL_GameControllerButton)ev.cbutton.button );

@@ -250,7 +250,7 @@ idCVar r_glDebugContext( "r_glDebugContext", "0", CVAR_RENDERER | CVAR_BOOL, "En
 #include "glad/gl.h"
 
 // GL_ARB_debug_output
-PFNGLDEBUGMESSAGECALLBACKARBPROC        qglDebugMessageCallbackARB;
+//PFNGLDEBUGMESSAGECALLBACKARBPROC        qglDebugMessageCallbackARB;
 
 // eez: This is a slight hack for letting us select the desired screenshot format in other functions
 //  This is a hack to avoid adding another function parameter to idRenderSystem::TakeScreenshot(),

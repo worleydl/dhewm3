@@ -188,6 +188,7 @@ static float GetDefaultDPI()
 
 static float GetDefaultScale()
 {
+#ifdef _UWP_TODO
 	if ( glConfig.winWidth != glConfig.vidWidth ) {
 		// in HighDPI mode, the font sizes are already scaled (to window coordinates), apparently
 		return 1.0f;
@@ -196,12 +197,15 @@ static float GetDefaultScale()
 	float ret = GetDefaultDPI() / 96.0f;
 	ret = round(ret*2.0)*0.5; // round to .0 or .5
 	return ret;
+#else
+	return 1.0f;
+#endif
 }
 
 float GetScale()
 {
 	float ret = imgui_scale.GetFloat();
-	if (ret < 0.0f) {
+	if (ret <= 0.0f) {
 		ret = GetDefaultScale();
 	}
 	return ret;

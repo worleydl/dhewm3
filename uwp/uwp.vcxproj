@@ -224,7 +224,7 @@
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
       <AdditionalDependencies>dhewm3.lib;idlib.lib;OpenAl32.lib;libcurl.lib;z.lib;$(ProjectDir)\..\uwpdep\SDL2.lib;opengl32.lib;libgallium_wgl.lib;d3d12.lib;dxgi.lib;dxguid.lib;onecore.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Debug\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\lib; $(ProjectDir)\..\uwpdep; $(SolutionDir)\Debug\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ClCompile>
@@ -241,7 +241,7 @@
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
       <AdditionalDependencies>dhewm3.lib;idlib.lib;OpenAl32.lib;libcurl.lib;z.lib;$(ProjectDir)\..\uwpdep\SDL2.lib;opengl32.lib;libgallium_wgl.lib;d3d12.lib;dxgi.lib;dxguid.lib;onecore.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\lib; $(ProjectDir)\..\uwpdep; $(ProjectDir)\..\Release\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); C:\lib; $(ProjectDir)\..\..\dhewm3-libs\x86_64-w64-mingw32\lib; $(ProjectDir)\..\uwpdep; $(SolutionDir)\Release\; $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
