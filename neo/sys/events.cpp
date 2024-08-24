@@ -1131,6 +1131,20 @@ sysEvent_t Sys_GetEvent() {
 		return res;
 	}
 
+	// Gamepad settings hook when both sticks are pressed
+	// TODO: Figure out why binding to select/stick press doesn't work
+	auto now = high_resolution_clock::now();
+	SDL_GameController* gc = SDL_GameControllerFromInstanceID(0);
+	if (gc && SDL_GameControllerGetButton(gc, SDL_CONTROLLER_BUTTON_LEFTSTICK)
+				&& duration_cast<milliseconds>(now - last_combo_press).count() > 250)
+	{
+		if (SDL_GameControllerGetButton(gc, SDL_CONTROLLER_BUTTON_RIGHTSTICK)) {
+			last_combo_press = high_resolution_clock::now();
+			idCmdArgs args;
+			Com_Dhewm3Settings_f(args);
+		}
+	}
+
 	// loop until there is an event we care about (will return then) or no more events
 	while(SDL_PollEvent(&ev)) {
 		if(D3::ImGuiHooks::ProcessEvent(&ev)) {
@@ -1401,7 +1415,6 @@ sysEvent_t Sys_GetEvent() {
 			res.evType = SE_KEY;
 			res.evValue2 = ev.cbutton.state == SDL_PRESSED ? 1 : 0;
 
-			auto now = high_resolution_clock::now();
 			// special case: always treat the start button as escape so it opens/closes the menu
 			// (also makes that button non-bindable)
 			if ( ev.cbutton.button == SDL_CONTROLLER_BUTTON_START ) {
@@ -1416,16 +1429,6 @@ sysEvent_t Sys_GetEvent() {
 				mouse_polls.Append( mouse_poll_t(M_ACTION1, res.evValue2) );
 				res.evValue = K_MOUSE1;
 				return res;
-			// Inject show settings shortcut when both sticks are pressed, maybe able to process this from joy polls later
-			} else if (ev.cbutton.button == SDL_CONTROLLER_BUTTON_LEFTSTICK 
-				&& duration_cast<milliseconds>(now - last_combo_press).count() > 250)
-			{
-				SDL_GameController* gc = SDL_GameControllerFromInstanceID(ev.cbutton.which);
-				if (SDL_GameControllerGetButton(gc, SDL_CONTROLLER_BUTTON_RIGHTSTICK)) {
-					last_combo_press = high_resolution_clock::now();
-					idCmdArgs args;
-					Com_Dhewm3Settings_f(args);
-				}
 			}
 
 			sys_jEvents jEvent =  mapjoybutton( (SDL_GameControllerButton)ev.cbutton.button );
