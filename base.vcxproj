@@ -93,7 +93,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include\AL;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include\SDL2;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include;C:\dev\hdr\dhewm3;C:\dev\hdr\dhewm3\neo;C:\dev\hdr\dhewm3\neo\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include\AL;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include\SDL2;C:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32\include;C:\dev\hdr\dhewm3;C:\dev\hdr\dhewm3\neo;C:\dev\hdr\dhewm3\neo\game;C:\dev\hdr\dhewm3\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4100;4127;4244;4245;4267;4714;4996;4068;4458</DisableSpecificWarnings>
@@ -105,7 +105,7 @@
       <TreatSpecificWarningsAsErrors>4840;4306;4311;4312;4302</TreatSpecificWarningsAsErrors>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_DEBUG;GAME_DLL;D3_OSTYPE="windows";D3_SIZEOFPTR=8;_ALLOW_KEYWORD_MACROS;WINVER=0x0501;_WIN32_WINNT=0x0501;CMAKE_INTDIR="Debug";base_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_DEBUG;GAME_DLL;D3_OSTYPE="windows";D3_SIZEOFPTR=8;_ALLOW_KEYWORD_MACROS;WINVER=0x0501;_UWP;_WIN32_WINNT=0x0501;CMAKE_INTDIR="Debug";base_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
@@ -122,7 +122,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>Debug\idlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>Debug\idlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;WindowsApp.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>

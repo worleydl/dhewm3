@@ -385,7 +385,7 @@ try_again:
 		window = SDL_CreateWindow(ENGINE_VERSION,
 									SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),
 									SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex),
-									WinInfo::getHostWidth(), WinInfo::getHostHeight(), flags);
+									parms.width, parms.height, flags);
 
 		if (!window) {
 			common->Warning("Couldn't set GL mode %d/%d/%d with %dx MSAA: %s",
@@ -1116,6 +1116,7 @@ bool GLimp_SetWindowResizable( bool enableResizable )
 
 void GLimp_UpdateWindowSize()
 {
+#ifdef UWP_TODO
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 	Uint32 winFlags = SDL_GetWindowFlags( window );
 	if ( (winFlags & SDL_WINDOW_FULLSCREEN_DESKTOP) == SDL_WINDOW_FULLSCREEN ) {
@@ -1142,5 +1143,6 @@ void GLimp_UpdateWindowSize()
 		glConfig.winHeight = wh;
 	}
 	SDL_GL_GetDrawableSize( window, &glConfig.vidWidth, &glConfig.vidHeight );
+#endif
 #endif
 }
