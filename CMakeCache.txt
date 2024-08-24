@@ -263,6 +263,9 @@ DHEWM3LIBS:UNINITIALIZED=c:\dev\hdr\dhewm3-libs\x86_64-w64-mingw32
 //Compile gamecode into executable (no game DLLs)
 HARDLINK_GAME:BOOL=OFF
 
+//Build with Dear ImGui integration - requires SDL2 and C++11
+IMGUI:BOOL=ON
+
 //Set RPATH to $ORIGIN/libs/ for Linux binary releases
 LINUX_RELEASE_BINS:BOOL=OFF
 

@@ -638,7 +638,7 @@ void R_LoadARBProgram( int progIndex ) {
 			"\nEND\n\n"; // we add this block right at the end, replacing the original "END" string
 		
 		const char* extraLines;
-		if (strstr(fullPath, "glass") || strstr(fullPath, "heatHaze")) {
+		if (strstr(progs[progIndex].name, "glass") || strstr(progs[progIndex].name, "heatHaze")) {
 			extraLines = extraLinesDefault;
 		}
 		else {
