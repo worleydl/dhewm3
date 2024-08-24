@@ -573,7 +573,7 @@ void R_LoadARBProgram( int progIndex ) {
 
 	// DG: hack gamma correction into shader
 	if ( r_gammaInShader.GetBool() && progs[progIndex].target == GL_FRAGMENT_PROGRAM_ARB
-	     && strstr( start, "nodhewm3gammahack" ) == NULL && 0) // Disabled while debugging new postprocess
+	     && strstr( start, "nodhewm3gammahack" ) == NULL)
 	{
 		// note that strlen("dhewm3tmpres") == strlen("result.color")
 		const char* tmpres = "TEMP dhewm3tmpres; # injected by dhewm3 for gamma correction\n";
@@ -644,7 +644,7 @@ void R_LoadARBProgram( int progIndex ) {
 		else {
 			extraLines = extraLinesTonemapped;
 		}
-		extraLines = extraLinesDefault;  // Switched to postprocess tonemap, above can be deleted
+		extraLines = extraLinesDefault;  // Sticking with default for now, use tonemapped to experiment with arb tonemapping 
 
 
 		int fullLen = strlen( start ) + strlen( tmpres ) + strlen( extraLines );

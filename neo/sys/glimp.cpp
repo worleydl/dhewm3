@@ -111,6 +111,9 @@ const float fs_quad_verts[] = {
 	 1.0f, -1.0f,  1.0f, 0.0f,
 	-1.0f,  1.0f,  0.0f, 1.0f };
 
+// These were an experiment to try out different shaders without having to port them to ARB first.
+// The major downside is the entire screen is processed including hud elements which can get washed out by doing it at this stage.
+// This could be a good spot for scanlines or other general fx filters but for in game tonemapping I'm falling back to the arb for now.
 const char* post_process_v =
 "#version 330 core\n"
 "layout(location = 0) in vec2 inPos;\n"

@@ -617,20 +617,23 @@ const void	RB_SwapBuffers( const void *data ) {
 	}
 
 	// Use postprocess shader on fullscreen quad to present image to screen
-	qglBindFramebuffer(GL_FRAMEBUFFER, glConfig.intermediate);
-	qglActiveTexture(glConfig.intTexture);
+	// Disabled for now
+	/*
+	qglBindFramebuffer(GL_FRAMEBUFFER, 0);
+	qglActiveTexture(GL_TEXTURE0);
 	qglBindTexture(GL_TEXTURE_2D, glConfig.fbTexture);
 	qglDisable(GL_DEPTH_TEST);
 	qglDisable(GL_BLEND);
-	qglDisable( GL_SCISSOR_TEST );
 	qglUseProgram(glConfig.postprocessShader);
 
 	qglBindVertexArray(glConfig.quadVAO);
 	qglDrawArrays(GL_TRIANGLES, 0, 6);
+	*/
 
 	// Blit to support lower res (can maybe pull this off in the shader?)
+	qglDisable( GL_SCISSOR_TEST );
 	qglBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-	qglBindFramebuffer(GL_READ_FRAMEBUFFER, glConfig.intermediate);
+	qglBindFramebuffer(GL_READ_FRAMEBUFFER, glConfig.fbo);
 	qglBlitFramebuffer(0, 0, glConfig.vidWidth, glConfig.vidHeight, 0, 0, WinInfo::getHostWidth(), WinInfo::getHostHeight(), GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
 	// don't flip if drawing to front buffer
