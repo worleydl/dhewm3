@@ -46,6 +46,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "renderer/Model.h"
 #include "renderer/ModelManager.h"
 #include "renderer/RenderSystem.h"
+#include "renderer/wininfo.h"
 #include "tools/compilers/compiler_public.h"
 #include "tools/compilers/aas/AASFileManager.h"
 #include "tools/edit_public.h"
@@ -1088,8 +1089,10 @@ void idCommonLocal::WriteConfiguration( void ) {
 	bool developer = com_developer.GetBool();
 	com_developer.SetBool( false );
 
-	WriteConfigToFile( CONFIG_FILE );
-	session->WriteCDKey( );
+	WinInfo::runOnAuxThread([this]() {
+		WriteConfigToFile(CONFIG_FILE);
+		session->WriteCDKey();
+	});
 
 	// restore the developer cvar
 	com_developer.SetBool( developer );

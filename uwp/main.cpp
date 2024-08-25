@@ -22,6 +22,10 @@
 #include <winrt/Windows.Graphics.Display.Core.h>o
 
 #include <expandedresources.h>
+#include <deque>
+#include <mutex>
+#include <thread>
+
 
 
 using namespace winrt::Windows::Graphics::Display::Core;
@@ -69,12 +73,38 @@ static int width, height;
 
 #include "../neo/renderer/wininfo.h"
 
+static std::deque<std::function<void()>> aux_queue;
+static std::mutex aux_mutex;
+static bool aux_running = true;
+
+// Thread for running tasks like saving cfg files so it doesn't delay render
+void AuxThread()
+{
+    while (aux_running) {
+       static std::mutex m_event_mutex;
+       while (!aux_queue.empty())
+       {
+           aux_queue.front()();
+           aux_queue.pop_front();
+       }
+
+       Sleep(50);
+    }
+
+}
+
 int WinInfo::getHostWidth() {
     return width;
 }
 
 int WinInfo::getHostHeight() {
     return height;
+}
+
+void WinInfo::runOnAuxThread(std::function<void()> funkshun)
+{
+    std::unique_lock<std::mutex> lk(aux_mutex);
+    aux_queue.push_back(funkshun);
 }
 
 int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
@@ -96,6 +126,9 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
             break;
         }
     }
-
-    return SDL_WinRTRunApp(SDL_main, NULL);
+    std::thread t = std::thread(AuxThread);
+    int resp =  SDL_WinRTRunApp(SDL_main, NULL);
+    aux_running = false;
+    t.join();
+    return resp;
 }
