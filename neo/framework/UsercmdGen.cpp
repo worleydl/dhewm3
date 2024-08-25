@@ -806,7 +806,7 @@ void idUsercmdGenLocal::HandleJoystickAxis( int keyNum, float unclampedValue, fl
 	}
 
 	int action = idKeyInput::GetUsercmdAction( keyNum );
-	if ( action >= UB_ATTACK ) {
+	if ( action >= UB_ATTACK || keyNum == K_JOY_TRIGGER1 || keyNum == K_JOY_TRIGGER2 ) {
 		Key( keyNum, pressed );
 		return;
 	}
