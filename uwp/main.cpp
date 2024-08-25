@@ -160,9 +160,10 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         if (mode.ColorSpace() == HdmiDisplayColorSpace::BT2020 && mode.RefreshRate() >= 59)
         {
+
             hdi.RequestSetCurrentDisplayModeAsync(mode, HdmiDisplayHdrOption::Eotf2084);
-             width = hdi.GetCurrentDisplayMode().ResolutionWidthInRawPixels();
-             height = hdi.GetCurrentDisplayMode().ResolutionHeightInRawPixels();
+            width = hdi.GetCurrentDisplayMode().ResolutionWidthInRawPixels();
+            height = hdi.GetCurrentDisplayMode().ResolutionHeightInRawPixels();
             break;
         }
     }

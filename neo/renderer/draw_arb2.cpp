@@ -612,7 +612,7 @@ void R_LoadARBProgram( int progIndex ) {
 			"TEMP leftColor;\n"
 			"TEMP rightColor;\n"
 
-			"MUL_SAT dhewm3tmpres.xyz, program.env[4], dhewm3tmpres;\n" // first multiply with exposure
+			"MUL_SAT dhewm3tmpres.xyz, program.env[21], dhewm3tmpres;\n" // first multiply with exposure
 
 			// Left side ops
 			"MAD leftColor.xyz, {2.51}.x, dhewm3tmpres, {0.03}.x;\n"
@@ -629,9 +629,9 @@ void R_LoadARBProgram( int progIndex ) {
 			"MUL_SAT dhewm3tmpres.xyz, leftColor, rightColor;\n"
 
 			// Gamma correction
-			"POW result.color.x, dhewm3tmpres.x, program.env[4].w;\n"
-			"POW result.color.y, dhewm3tmpres.y, program.env[4].w;\n"
-			"POW result.color.z, dhewm3tmpres.z, program.env[4].w;\n"
+			"POW result.color.x, dhewm3tmpres.x, program.env[21].w;\n"
+			"POW result.color.y, dhewm3tmpres.y, program.env[21].w;\n"
+			"POW result.color.z, dhewm3tmpres.z, program.env[21].w;\n"
 			"MOV result.color.w, dhewm3tmpres.w;\n" // alpha remains unmodified
 
 

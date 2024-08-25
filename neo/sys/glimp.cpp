@@ -691,6 +691,8 @@ try_again:
 	D3::ImGuiHooks::Init(window, context);
 #endif
 
+#define HDR_FORMAT GL_RGBA16
+
 	GLuint fbo, color, dsTex, intermediate, intcolor, intdsTex;
 	// Primary render fbo
 	qglGenFramebuffers(1, &fbo);
@@ -699,7 +701,7 @@ try_again:
 	qglBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
 	qglBindTexture(GL_TEXTURE_2D, color);
-	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, glConfig.vidWidth, glConfig.vidHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	qglTexImage2D(GL_TEXTURE_2D, 0, HDR_FORMAT, glConfig.vidWidth, glConfig.vidHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -723,7 +725,7 @@ try_again:
 	qglBindFramebuffer(GL_FRAMEBUFFER, intermediate);
 
 	qglBindTexture(GL_TEXTURE_2D, intcolor);
-	qglTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, glConfig.vidWidth, glConfig.vidHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	qglTexImage2D(GL_TEXTURE_2D, 0, HDR_FORMAT, glConfig.vidWidth, glConfig.vidHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
