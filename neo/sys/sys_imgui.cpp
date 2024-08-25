@@ -188,7 +188,7 @@ static float GetDefaultDPI()
 
 static float GetDefaultScale()
 {
-#ifdef _UWP_TODO
+#ifndef _UWP
 	if ( glConfig.winWidth != glConfig.vidWidth ) {
 		// in HighDPI mode, the font sizes are already scaled (to window coordinates), apparently
 		return 1.0f;
@@ -198,7 +198,7 @@ static float GetDefaultScale()
 	ret = round(ret*2.0)*0.5; // round to .0 or .5
 	return ret;
 #else
-	return 1.0f;
+	return (float) glConfig.vidHeight / 1080;
 #endif
 }
 

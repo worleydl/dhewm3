@@ -19,6 +19,7 @@
 #include "../libs/imgui/imgui_internal.h"
 
 #include "renderer/tr_local.h" // render cvars
+#include "renderer/wininfo.h" // width/height lookup
 #include "sound/snd_local.h" // sound cvars
 
 extern const char* D3_GetGamepadStartButtonName();
@@ -1650,7 +1651,9 @@ static CVarOption videoOptionsImmediately[] = {
 		}
 		AddCVarOptionTooltips( cvar, descr );
 	} ),
+#ifndef _UWP
 	CVarOption( "r_windowResizable", "Make dhewm3 window resizable", OT_BOOL ),
+#endif
 	CVarOption( "r_brightness", "Brightness", OT_FLOAT, 0.5f, 2.0f ),
 	CVarOption( "r_gamma", "Gamma", OT_FLOAT, 0.5f, 3.0f ),
 	CVarOption( "r_lightScale", "Light Intensity", OT_FLOAT,  0.5f, 3.0f),
@@ -1846,6 +1849,7 @@ static void DrawVideoOptionsMenu()
 
 	ImGui::SeparatorText( "Options that must be applied" );
 
+#ifndef _UWP
 	// fullscreen
 	int fullscreenChoice = r_fullscreen.GetBool();
 	if ( ImGui::Combo( "Window Mode", &fullscreenChoice, "Windowed\0Fullscreen\0" ) ) {
@@ -1858,6 +1862,7 @@ static void DrawVideoOptionsMenu()
 	}
 	AddTooltip( "r_fullscreenDesktop" );
 	AddDescrTooltip( "ignores the resolution configured in dhewm3, doesn't switch the display resolution, can prevent issues like desktop icons being rearranged after running the game" );
+#endif
 
 	// Video Mode / Resolution
 	static int selModeIdx = -1; // index within our vidModes array
@@ -1880,7 +1885,11 @@ static void DrawVideoOptionsMenu()
 		}
 	}
 
+#ifndef _UWP
 	const char* resLabel = ( fullscreenChoice && fullscreenDesktop ) ? "Window Resolution (ignored for Fullscreen Desktop Mode!)###resMode" : "Resolution###resMode";
+#else
+	const char* resLabel = "Resolution###resMode";
+#endif
 
 	if ( ImGui::Combo( resLabel, &selModeIdx, [](void* data, int idx) -> const char* {
 				const idList<VidMode>& vms = *static_cast< const idList<VidMode>* >(data);
@@ -1906,17 +1915,26 @@ static void DrawVideoOptionsMenu()
 	// resolution info text
 	int sdlDisplayIdx = SDL_GetWindowDisplayIndex( SDL_GL_GetCurrentWindow() );
 	SDL_Rect displayRect = {};
+#ifndef _UWP
 	SDL_GetDisplayBounds( sdlDisplayIdx, &displayRect );
+#else
+	displayRect.w = WinInfo::getHostWidth();
+	displayRect.h = WinInfo::getHostHeight();
+#endif
+#ifndef _UWP
 	if ( (int)glConfig.winWidth != glConfig.vidWidth ) {
 		ImGui::TextDisabled( "Current Resolution: %g x %g (Physical: %d x %d)",
 		                     glConfig.winWidth, glConfig.winHeight, glConfig.vidWidth, glConfig.vidHeight );
+
 		AddDescrTooltip( "Apparently your system is using a HighDPI mode, where the logical resolution (used to specify"
 		                 " window sizes) is lower than the physical resolution (number of pixels actually rendered)." );
 		float scale = float(glConfig.vidWidth)/glConfig.winWidth;
 		int pw = scale * displayRect.w;
 		int ph = scale * displayRect.h;
 		ImGui::TextDisabled( "Display Size: %d x %d (Physical: %d x %d)", displayRect.w, displayRect.h, pw, ph );
-	} else {
+	} else 
+#endif
+	{
 		ImGui::TextDisabled( "Current Resolution: %d x %d", glConfig.vidWidth, glConfig.vidHeight );
 		ImGui::TextDisabled( "Display Size: %d x %d", displayRect.w, displayRect.h );
 	}

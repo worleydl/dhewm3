@@ -94,6 +94,8 @@
 #include <TargetConditionals.h>
 #endif
 
+#include <renderer/tr_local.h>
+
 #if SDL_VERSION_ATLEAST(2,0,4) && !defined(__EMSCRIPTEN__) && !defined(__ANDROID__) && !(defined(__APPLE__) && TARGET_OS_IOS) && !defined(__amigaos4__)
 #define SDL_HAS_CAPTURE_AND_GLOBAL_MOUSE    1
 #else
@@ -712,6 +714,7 @@ void ImGui_ImplSDL2_NewFrame()
     // Setup display size (every frame to accommodate for window resizing)
     int w, h;
     int display_w, display_h;
+#ifndef _UWP
     SDL_GetWindowSize(bd->Window, &w, &h);
     if (SDL_GetWindowFlags(bd->Window) & SDL_WINDOW_MINIMIZED)
         w = h = 0;
@@ -719,6 +722,12 @@ void ImGui_ImplSDL2_NewFrame()
         SDL_GetRendererOutputSize(bd->Renderer, &display_w, &display_h);
     else
         SDL_GL_GetDrawableSize(bd->Window, &display_w, &display_h);
+#else
+    w = glConfig.vidWidth;
+    h = glConfig.vidHeight;
+    display_w = w; //WinInfo::getHostWidth();
+    display_h = h; //WinInfo::getHostHeight();
+#endif
     io.DisplaySize = ImVec2((float)w, (float)h);
     if (w > 0 && h > 0)
         io.DisplayFramebufferScale = ImVec2((float)display_w / w, (float)display_h / h);
