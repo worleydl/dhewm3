@@ -1653,6 +1653,7 @@ static CVarOption videoOptionsImmediately[] = {
 	CVarOption( "r_windowResizable", "Make dhewm3 window resizable", OT_BOOL ),
 	CVarOption( "r_brightness", "Brightness", OT_FLOAT, 0.5f, 2.0f ),
 	CVarOption( "r_gamma", "Gamma", OT_FLOAT, 0.5f, 3.0f ),
+	CVarOption( "r_lightScale", "Light Intensity", OT_FLOAT,  0.5f, 3.0f),
 	CVarOption( "r_gammaInShader", "Apply gamma and brightness in shaders", OT_BOOL ),
 	CVarOption( "r_scaleMenusTo43", "Scale fullscreen menus to 4:3", OT_BOOL ),
 	CVarOption( "r_screenshotFormat", []( idCVar& cvar ) {

@@ -81,14 +81,23 @@ static bool aux_running = true;
 void AuxThread()
 {
     while (aux_running) {
-       static std::mutex m_event_mutex;
-       while (!aux_queue.empty())
-       {
-           aux_queue.front()();
-           aux_queue.pop_front();
-       }
+        if (!aux_queue.empty()) {
+            std::deque<std::function<void()>> batch;
 
-       Sleep(50);
+            // Acquire mutex for minimal time, copy current items to new batch, clear queue and free mutex for new items
+            {
+                std::unique_lock<std::mutex> lk(aux_mutex);
+                batch = aux_queue;
+                aux_queue.clear();
+            }
+
+            while (!batch.empty()) {
+                batch.front()();
+                batch.pop_front();
+            }
+        }
+
+        Sleep(50);
     }
 
 }
@@ -126,9 +135,9 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
             break;
         }
     }
-    std::thread t = std::thread(AuxThread);
+    std::thread aux_thread = std::thread(AuxThread);
     int resp =  SDL_WinRTRunApp(SDL_main, NULL);
     aux_running = false;
-    t.join();
+    aux_thread.join();
     return resp;
 }
