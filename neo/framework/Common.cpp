@@ -1089,7 +1089,7 @@ void idCommonLocal::WriteConfiguration( void ) {
 	bool developer = com_developer.GetBool();
 	com_developer.SetBool( false );
 
-	WinInfo::runOnAuxThread([this]() {
+	WinInfo::requestConfigSave([this]() {
 		WriteConfigToFile(CONFIG_FILE);
 		session->WriteCDKey();
 	});

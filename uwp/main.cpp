@@ -26,8 +26,6 @@
 #include <mutex>
 #include <thread>
 
-
-
 using namespace winrt::Windows::Graphics::Display::Core;
 
 /* At least one file in any SDL/WinRT app appears to require compilation
@@ -73,9 +71,16 @@ static int width, height;
 
 #include "../neo/renderer/wininfo.h"
 
+// Auxilliary thread processes all items in queue
 static std::deque<std::function<void()>> aux_queue;
 static std::mutex aux_mutex;
 static bool aux_running = true;
+
+// Save thread maintains last request for save and executes every SAVE_INTERVAL_MS
+#define SAVE_INTERVAL_MS 1000
+static std::function<void()> save_task;
+static std::mutex save_mutex;
+static bool save_running = true;
 
 // Thread for running tasks like saving cfg files so it doesn't delay render
 void AuxThread()
@@ -99,7 +104,26 @@ void AuxThread()
 
         Sleep(50);
     }
+}
 
+void SaveThread()
+{
+    while (save_running)
+    {
+        Sleep(SAVE_INTERVAL_MS);
+
+        if (save_task) {
+            std::function<void()> task;
+            {
+                // Mutex prevents nulling out a new request if it comes in at right time
+                std::unique_lock<std::mutex> lk(save_mutex);
+                task = save_task;
+                save_task = NULL;
+            }
+
+            task();
+        }
+    }
 }
 
 int WinInfo::getHostWidth() {
@@ -108,6 +132,13 @@ int WinInfo::getHostWidth() {
 
 int WinInfo::getHostHeight() {
     return height;
+}
+
+// Only processed every SAVE_INTERVAL_MS, last request is discarded
+void WinInfo::requestConfigSave(std::function<void()> funkshun)
+{
+    std::unique_lock<std::mutex> lk(save_mutex);
+    save_task = funkshun;
 }
 
 void WinInfo::runOnAuxThread(std::function<void()> funkshun)
@@ -135,9 +166,16 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
             break;
         }
     }
+
     std::thread aux_thread = std::thread(AuxThread);
+    std::thread save_thread = std::thread(SaveThread);
+
     int resp =  SDL_WinRTRunApp(SDL_main, NULL);
+
     aux_running = false;
+    save_running = false;
     aux_thread.join();
+    save_thread.join();
+
     return resp;
 }
