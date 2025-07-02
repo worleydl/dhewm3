@@ -92,6 +92,20 @@ the cmake command there, pointing it at the neo/ folder from this repository:
 
 `cmake /path/to/repository/neo`
 
+
+For **Windows UWP** you must build three seperate projects:
+
+- Setup main project with `UWP_BUILD=ON` and `CMAKE_SYSTEM_NAME=WindowsStore` + `CMAKE_SYSTEM_VERSION=10.0.19041.0`
+  - This will build UWP compatible game/mod DLL's
+  - You will likely want to use vcpkg with this using the `x64-uwp` triplet
+- Setup main project with just `UWP_BUILD=ON`
+  - This will build a UWP compatible static library to be consumed by the final project
+- Setup the UWP wrapper project available under `uwp`
+  - This will link against dhewm3.lib and call `SDL_main`
+  - The cmake config takes care of binary dependencies
+
+It saves a good bit of code modification to build the DLL's and game lib with separate cmake configs then combine them with the UWP wrapper.
+
 **macOS** users need to point CMake at OpenAL Soft (better solutions welcome):
 
 `cmake -DOPENAL_LIBRARY=/usr/local/opt/openal-soft/lib/libopenal.dylib -DOPENAL_INCLUDE_DIR=/usr/local/opt/openal-soft/include /path/to/repository/neo`
