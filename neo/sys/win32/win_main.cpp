@@ -65,7 +65,7 @@ If you have questions concerning this license or the applicable additional terms
 #endif
 
 
-idCVar Win32Vars_t::win_outputDebugString( "win_outputDebugString", "0", CVAR_SYSTEM | CVAR_BOOL, "" );
+idCVar Win32Vars_t::win_outputDebugString( "win_outputDebugString", "1", CVAR_SYSTEM | CVAR_BOOL, "" );
 idCVar Win32Vars_t::win_outputEditString( "win_outputEditString", "1", CVAR_SYSTEM | CVAR_BOOL, "" );
 idCVar Win32Vars_t::win_viewlog( "win_viewlog", "0", CVAR_SYSTEM | CVAR_INTEGER, "" );
 
@@ -485,18 +485,28 @@ bool Sys_GetPath(sysPath_t type, idStr &path) {
 				return true;
 		}
 
+#ifdef _UWP
+		path = "E:/d3";
+		if (_stat(path.c_str(), &st) != -1 && st.st_mode & _S_IFDIR)
+			return true;
+#endif
+
 		common->Warning("vanilla doom3 path not found either");
 
 		return false;
 
 	case PATH_CONFIG:
 	case PATH_SAVE:
+#ifndef _UWP
 		if (Win_GetHomeDir(buf, sizeof(buf)) < 1) {
 			Sys_Error("ERROR: Couldn't get dir to home path");
 			return false;
 		}
 
 		path = buf;
+#else
+		path = "E:/d3";
+#endif
 		return true;
 
 	case PATH_EXE:
@@ -751,7 +761,9 @@ The cvar system must already be setup
 */
 void Sys_Init( void ) {
 
+#ifndef _UWP
 	CoInitialize( NULL );
+#endif
 
 	// make sure the timer is high precision, otherwise
 	// NT gets 18ms resolution
@@ -816,7 +828,9 @@ void Sys_Shutdown( void ) {
 	qwglSwapBuffers = NULL;
 #endif // ID_ALLOW_TOOLS
 
+#ifndef _UWP
 	CoUninitialize();
+#endif
 }
 
 //=======================================================================
@@ -1077,7 +1091,12 @@ static void redirect_output(void)
 
 	/* DG: use "My Documents/My Games/dhewm3" to write stdout.txt and stderr.txt
 	*     instead of the binary, which might not be writable */
+#ifndef _UWP
 	Win_GetHomeDir(path, sizeof(path));
+#else
+	const char* sdlPath = SDL_GetPrefPath("dhewm3", "save");
+	strncpy_s(path, MAX_PATH, sdlPath, MAX_PATH);
+#endif
 
 	if (_stat(path, &st) == -1) {
 		/* oops, "My Documents/My Games/dhewm3" doesn't exist - does My Games/ at least exist? */
@@ -1397,7 +1416,11 @@ static BOOL OutOfMemory(void)
 	return -1;
 }
 
+#ifndef _UWP
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR szCmdLine, int sw)
+#else
+int WINAPI xWinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR szCmdLine, int sw)
+#endif
 {
 	(void)hInst;
 	(void)hPrev;

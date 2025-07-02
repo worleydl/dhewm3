@@ -60,6 +60,19 @@ option(SDL2			"Use SDL2 instead of SDL1.2" ON)
 option(SDL3			"Use SDL3 instead of SDL2 or SDL1.2" OFF)
 option(IMGUI		"Build with Dear ImGui integration - requires SDL2/SDL3 and C++11" ON)
 option(REPRODUCIBLE_BUILD "Replace __DATE__ and __TIME__ by hardcoded values for reproducible builds" OFF)
+option(UWP_BUILD "Setup flags/configuration for UWP compatible build" OFF)
+
+if(UWP_BUILD)
+	add_definitions(-D_UWP=1)
+	set(CMAKE_SYSTEM_PROCESSOR "x64")
+
+	# Do a "WindowsStore" build with CORE=OFF to build game DLLs ands mods
+	# Later build CORE=ON as a regular windows project for the core static lib
+	if (CMAKE_SYSTEM_NAME STREQUAL "WindowsStore")
+		set(CORE OFF CACHE BOOL "No core for WindowsStore build, game DLL's only" FORCE)
+		add_compile_options(/sdl-) # Disables errors about potentially uninit memory
+	endif()
+endif()
 
 option(HARDLINK_GAME "Compile gamecode into executable (no game DLLs)" OFF)
 
@@ -1255,13 +1268,19 @@ if(HARDLINK_GAME)
 endif()# HARDLINK_GAME
 
 if(CORE)
-	add_executable(${DHEWM3BINARY} WIN32 MACOSX_BUNDLE
+	set(target_srcs
 		${src_core}
 		${src_sys_base}
 		${src_sys_core}
 		${src_imgui}
 		${src_editor_tools}
 	)
+
+	if(UWP_BUILD)
+	add_library(${DHEWM3BINARY} STATIC ${target_srcs})
+	else()
+	add_executable(${DHEWM3BINARY} WIN32 MACOSX_BUNDLE ${target_srcs})
+	endif()
 	
 	if(MSVC AND CMAKE_MAJOR_VERSION GREATER 3 OR ( CMAKE_MAJOR_VERSION EQUAL 3 AND CMAKE_MINOR_VERSION GREATER_EQUAL 6 ))
 		# CMake >= 3.6 supports setting the default project started for debugging (instead of trying to launch ALL_BUILD ...)

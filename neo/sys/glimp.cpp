@@ -548,6 +548,7 @@ try_again:
 				   if I don't call it. */
 				SDL_SetWindowSize(window, wanted_mode.w, wanted_mode.h);
 
+#ifndef _UWP
 				if (SDL_GetWindowDisplayMode(window, &real_mode) != 0)
 				{
 					SDL_DestroyWindow(window);
@@ -557,7 +558,6 @@ try_again:
 
 					return false; // trying other color depth etc is unlikely to help with this issue
 				}
-
 				if ((real_mode.w != parms.width) || (real_mode.h != parms.height))
 				{
 					SDL_DestroyWindow(window);
@@ -568,6 +568,7 @@ try_again:
 
 					return false; // trying other color depth etc is unlikely to help with this issue
 				}
+#endif //_UWP
 				common->Warning("Now we have the requested resolution (%d x %d)\n", parms.width, parms.height);
 			}
 		}
@@ -1191,11 +1192,13 @@ void GLimp_GrabInput(int flags) {
 	SDL_ShowCursor( (flags & GRAB_HIDECURSOR) ? SDL_DISABLE : SDL_ENABLE );
 	SDL_SetRelativeMouseMode( (flags & GRAB_RELATIVEMOUSE) ? SDL_TRUE : SDL_FALSE );
 	SDL_SetWindowGrab( window, (flags & GRAB_GRABMOUSE) ? SDL_TRUE : SDL_FALSE );
+#ifndef _UWP
 	if (flags & GRAB_ENABLETEXTINPUT) {
 		SDL_StartTextInput();
 	} else {
 		SDL_StopTextInput();
 	}
+#endif
 #else
 	SDL_ShowCursor( (flags & GRAB_HIDECURSOR) ? SDL_DISABLE : SDL_ENABLE );
 	// ignore GRAB_GRABMOUSE, SDL1.2 doesn't support grabbing without relative mode

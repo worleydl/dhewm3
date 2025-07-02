@@ -87,7 +87,7 @@ Determines if Maya is installed on the user's machine
 =====================
 */
 bool idModelExport::CheckMayaInstall( void ) {
-#ifndef _WIN32
+#if !defined(_WIN32) || defined(_UWP)
 	return false;
 #elif 0
 	HKEY	hKey;
