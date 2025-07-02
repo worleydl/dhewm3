@@ -173,6 +173,10 @@ void ShowWarningOverlay( const char* text )
 
 static float GetDefaultScale()
 {
+#ifdef _UWP
+	return glConfig.winHeight / 1080.0f;
+#endif
+
 	if ( glConfig.winWidth != glConfig.vidWidth ) {
 		// in HighDPI mode, the font sizes are already scaled (to window coordinates), apparently
 		return 1.0f;
@@ -196,11 +200,16 @@ static float GetDefaultScale()
 
 float GetScale()
 {
+#ifndef _UWP
 	float ret = imgui_scale.GetFloat();
 	if (ret < 0.0f) {
 		ret = GetDefaultScale();
 	}
 	return ret;
+#else
+	// TODO: Maybe cleaner way of handling this, need scale to update if resolution changes
+	return GetDefaultScale();
+#endif
 }
 
 void SetScale( float scale )
@@ -286,6 +295,18 @@ bool Init(void* _sdlWindow, void* sdlGlContext)
 	} else {
 		idKeyInput::SetBinding( K_F10, "dhewm3Settings" );
 	}
+
+#ifdef _UWP
+	const char* backBind = idKeyInput::GetBinding( K_JOY_BTN_BACK );
+	if ( backBind && backBind[0] != '\0' ) {
+		if ( idStr::Icmp( backBind, "dhewm3Settings" ) != 0 ) {
+			// if BACK is already bound, but not to dhewm3Settings, show a message
+			common->Printf( "... the JOY_BTN_BACK key is already bound to '%s', otherwise it could be used to open the dhewm3 Settings Menu\n" , f10bind );
+		}
+	} else {
+		idKeyInput::SetBinding( K_JOY_BTN_BACK, "dhewm3Settings" );
+	}
+#endif
 
 	imgui_initialized = true;
 	return true;
