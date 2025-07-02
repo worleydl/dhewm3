@@ -174,7 +174,7 @@ void ShowWarningOverlay( const char* text )
 static float GetDefaultScale()
 {
 #ifdef _UWP
-	return glConfig.winHeight / 1080.0f;
+	return glConfig.vidHeight / 1080.0f;
 #endif
 
 	if ( glConfig.winWidth != glConfig.vidWidth ) {
